@@ -1,3 +1,7 @@
+// app/api/get/route.ts (atau file route kamu yang lain)
+export const runtime = "nodejs";       // paksa Node.js (bukan Edge)
+export const dynamic = "force-dynamic"; // hindari cache untuk request DB
+
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/db";
 import Wish from "@/lib/models/Wish";

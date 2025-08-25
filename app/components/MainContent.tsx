@@ -267,7 +267,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               <div className="pb-8 sm:pb-0">
                 <h1
                   ref={slide4Ref}
-                  className={`text-lg sm:text-xl md:text-5xl text-white font-ovo fadeInMove ${isSlide4InView ? " active" : ""
+                  className={`text-xl sm:text-xl md:text-5xl text-white font-ovo fadeInMove ${isSlide4InView ? " active" : ""
                     }`}
                 >
                   A journey in love
@@ -582,10 +582,10 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 ref={slide10Ref}
                 className={`${isSlide10InView ? "active" : ""} fadeInMove w-full`}
               >
-                <h1 className="text-xl sm:text-3xl text-white font-ovo text-center uppercase mb-4">
+                <h1 className="text-xl sm:text-3xl text-black font-ovo text-center uppercase mb-4">
                   Ucapan & Doa
                 </h1>
-                <p className="text-xs sm:text-sm text-center text-white/80 mb-4 font-legan max-w-md mx-auto">
+                <p className="text-xs sm:text-sm text-center text-black/80 mb-4 font-legan max-w-md mx-auto">
                   Berikan ucapan dan doa terbaik Anda untuk mempelai pengantin
                 </p>
                 <WishesList />
