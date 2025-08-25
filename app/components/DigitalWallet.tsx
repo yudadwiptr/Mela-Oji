@@ -14,8 +14,8 @@ const DigitalWallet = () => {
 
   return (
     <div className="mt-4 text-white overflow-y-auto max-h-[85vh] pb-4">
-      <h2 className="text-xl sm:text-3xl text-center font-ovo mb-2.5">{config.digitalWallet.messageTitle}</h2>
-      <p className="text-xs sm:text-sm text-center font-legan mb-5 max-w-md mx-auto">
+      <h2 className="text-xl sm:text-3xl text-center font-ovo mb-2.5 text-black">{config.digitalWallet.messageTitle}</h2>
+      <p className="text-xs sm:text-sm text-center font-legan mb-5 max-w-md mx-auto text-black">
       {config.digitalWallet.message}
       </p>
 

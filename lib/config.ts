@@ -6,13 +6,13 @@ export const config = {
     brideInstagram: process.env.NEXT_PUBLIC_BRIDE_INSTAGRAM || "melanialvina",
     brideBio: process.env.NEXT_PUBLIC_BRIDE_BIO || "",   
     groom: process.env.NEXT_PUBLIC_GROOM_NAME || "Muhammad Fahrul Fauzi ( Oji )",
-    groomNickName: process.env.NEXT_PUBLIC_GROOM_NICKNAME || "Putra Pertama dari Bapak Fahrul dan Ibu Siti",
+    groomNickName: process.env.NEXT_PUBLIC_GROOM_NICKNAME || "Putra Kedua dari Bapak Abdulloh dan Ibu Surni",
     groomInstagram: process.env.NEXT_PUBLIC_GROOM_INSTAGRAM || "fauzifahrul_",
     groomBio: process.env.NEXT_PUBLIC_GROOM_BIO || "",
     bibleVerse: process.env.NEXT_PUBLIC_BIBLE_VERSE || "QS. Ar-Rum: 21",
     bibleVerseContent: process.env.NEXT_PUBLIC_BIBLE_VERSE_CONTENT || "“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, supaya kamu merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berpikir.”",
     timeline_1: process.env.NEXT_PUBLIC_YEAR_1 || "2023 - Awal Mula Pertemuan",
-    timeline_1_content: process.env.NEXT_PUBLIC_YEAR_1_CONTENT || "Kami bertemu sebagai rekan kantor—dua sosok yang awalnya hanya saling bercanda dan saling dijadikan bahan ledekan oleh teman-teman. Gatau kenapa mereka seneng banget jodoh-jodohin dan ledekin kita berdua. Dan kita hanya balas dengan tawa dan candaan balik aja, ya karena kita tau itu semua cuma lelucon aja kan? 😁\nKita sadar bahwa gaakan ada hubungan diantara kita. Semuanya memang hanya candaan belaka—tanpa ada yang sebenarnya dimaksudkan lebih. Tapi seiring waktu, dari sekadar teman bercanda, teman berantem, teman adu argumen, tapi malah bikin kita jadi dua orang yang saling mengerti, saling mendukung. Tak ada drama, tak ada janji-janji manis—hanya rasa nyaman yang tumbuh perlahan.",
+    timeline_1_content: process.env.NEXT_PUBLIC_YEAR_1_CONTENT || "Kami bertemu sebagai rekan kantor—dua sosok yang awalnya hanya saling bercanda dan saling dijadikan bahan ledekan oleh teman-teman. Gatau kenapa mereka seneng banget jodoh-jodohin dan ledekin kita berdua. Dan kita hanya balas dengan tawa dan candaan balik aja, ya karena kita tau itu semua cuma lelucon aja kan?",
     timeline_2: process.env.NEXT_PUBLIC_YEAR_2 || "2024 - Tunangan",
     timeline_2_content: process.env.NEXT_PUBLIC_YEAR_2_CONTENT || "Dengan status hubungan kita yang hanya sekedar rekan kerja, tiba tiba di hari ulangtahun mela dilamar disalah satu puncak gunung favoritnya dengan sebuah cincin yang manis. Katanya dia memang sengaja merencanakan ini semua dan sudah meminta ijin dengan keluarga nya dirumah untuk melamarku di puncak gunung ini. Sebuah moment yang selama ini sangat di impikan para wanita mungkin ya, tapi tidak disangka dengan orang yang tidak pernah terduga sebelumnya.\nManusia yang cuek dan dingin ini ternyata bisa juga bikin moment romantis yang sangat amat penuh makna. Kita emang ga pernah jadian, tapi dia selalu membuktikan dengan tindakan nya yang ga pernah di sangka-sangka. Ga lama setelah itu, dia datang ke rumah bertemu orangtua untuk meminta izin menikahiku.",
     timeline_3: process.env.NEXT_PUBLIC_YEAR_3 || "2025 - Lamaran dan Menikah",
@@ -29,8 +29,8 @@ export const config = {
             },
             {
                 bank: process.env.NEXT_PUBLIC_BANK_2 || "Mandiri",
-                accountNumber: process.env.NEXT_PUBLIC_BANK_2_ACCOUNT || "0987654321",
-                accountName: process.env.NEXT_PUBLIC_BANK_2_NAME || "Arif  Nurrochman"
+                accountNumber: process.env.NEXT_PUBLIC_BANK_2_ACCOUNT || "1330026071365",
+                accountName: process.env.NEXT_PUBLIC_BANK_2_NAME || "Melani Alvina"
             }
         ]
     },

@@ -262,7 +262,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             <div
               className="snap-start text-white h-screen pt-6 sm:pt-8 flex px-6 sm:px-12 overflow-y-auto"
               style={{
-                backgroundImage: `url(/slide_4.jpg)`,
+                backgroundImage: `url(/slide_4c.JPG)`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -342,7 +342,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             <div
               className="snap-start text-white h-screen flex flex-col items-center justify-center px-6 sm:px-12"
               style={{
-                backgroundImage: `url(/slide_5.jpg)`,
+                backgroundImage: `url(/slide_5.jpeg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -353,10 +353,10 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   }  fadeInMove flex items-center flex-col`}
               >
                 <div className="text-center mb-4">
-                  <h3 className="uppercase font-legan text-xs sm:text-sm tracking-wide mb-1.5 text-amber-200">
+                  <h3 className="uppercase font-legan text-xs sm:text-sm tracking-wide mb-1.5 text-black">
                     SAVE OUR DATE
                   </h3>
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl text-white font-ovo uppercase leading-tight drop-shadow-lg">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl text-black font-ovo uppercase leading-tight">
                     {new Date(config.eventDate).toLocaleDateString("en-US", {
                       weekday: "long",
                     })} <br />  {new Date(config.eventDate).toLocaleDateString("en-US", {
@@ -374,10 +374,13 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                       AKAD
                     </h3>
                     <p className="text-sm text-center font-legan text-white font-semibold">
-                      10:00 WIB
+                      09:00 WIB
                     </p>
                     <div className="border-t border-gray-700/50 my-1.5"></div>
-                    <p className="text-2xs sm:text-xs text-center font-legan text-white/90"></p>
+                    <p className="text-2xs sm:text-xs text-center font-legan text-white/90">
+                      Gedung Serbaguna Sukasari <br />
+                      Lawanggintung RT.01/RW.03, Kec. Bogor Sel., Kota Bogor
+                    </p>
                   </div>
 
                   {/* Resepsi Section - More compact with better styling */}
@@ -386,11 +389,11 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                       RESEPSI
                     </h3>
                     <p className="text-sm text-center font-legan text-white font-semibold">
-                      13:00 WIB
+                      11:00 WIB
                     </p>
                     <div className="border-t border-gray-700/50 my-1.5"></div>
                     <p className="text-2xs sm:text-xs text-center font-legan text-white/90">
-                      Gedung Serbaguna Sukasari <br /> 
+                      Gedung Serbaguna Sukasari <br />
                       Lawanggintung RT.01/RW.03, Kec. Bogor Sel., Kota Bogor
                     </p>
                   </div>
@@ -413,7 +416,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   <div className="mt-8 flex items-center justify-center w-full">
                     <div className="flex items-center">
                       <div className="h-[1px] w-12 sm:w-16 bg-white/40"></div>
-                      <span className="px-3 font-thesignature text-2xl sm:text-3xl text-white/90">
+                      <span className="px-3 font-thesignature text-2xl sm:text-3xl text-white">
                         {config.coupleNames}
                       </span>
                       <div className="h-[1px] w-12 sm:w-16 bg-white/40"></div>
@@ -509,7 +512,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               <div
                 className="snap-start text-white h-screen flex flex-col justify-center pt-16 pb-16 px-8 "
                 style={{
-                  backgroundImage: `url(/slide_8.jpg)`,
+                  backgroundImage: `url(/slide_8.jpeg)`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -548,7 +551,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             <div
               className="snap-start text-white h-screen flex flex-col justify-center pt-16 pb-16 px-8"
               style={{
-                backgroundImage: `url(/slide_9.jpg)`,
+                backgroundImage: `url(/slide_9.jpeg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -573,7 +576,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             <div
               className="snap-start text-white h-screen flex flex-col justify-start pt-12 pb-8 px-4 sm:px-8 overflow-y-auto"
               style={{
-                backgroundImage: `url(/slide_9.jpg)`,
+                backgroundImage: `url(/slide_9.jpeg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -596,7 +599,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             <div
               className="snap-start text-white h-screen flex flex-col justify-center pt-16 pb-16 px-8"
               style={{
-                backgroundImage: `url(/slide_7.jpg)`,
+                backgroundImage: `url(/slide_7.jpeg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -611,33 +614,30 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
 
             {/* SLIDE AKHIR */}
             <div
-              className="snap-start text-white h-screen flex flex-col justify-end pt-16 pb-16 px-12 "
+              className="snap-start text-white h-screen flex flex-col justify-start pt-8 pb-16 px-12 "
               style={{
-                backgroundImage: `url(/slide_7.jpg)`,
+                backgroundImage: `url(/slide_10.jpeg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              <div
-                ref={endRef}
-                className={` ${isEndInView ? "active" : ""} fadeInMove `}
-              >
-                <h1 className="text-3xl text-white  font-ovo text-center uppercase">
+              {/* Ucapan terima kasih benar-benar di atas */}
+              <div className="w-full flex flex-col items-center">
+                <h1 className="text-3xl text-black font-ovo text-center uppercase mb-2">
                   {config.thankyou}
                 </h1>
-
-                <div className="mt-3 sm:mt-5 mx-auto flex flex-col ">
-                  <p className="text-xs sm:text-sm font-legan text-white text-center">
+                <div className="sm:mt-3 mx-auto flex flex-col ">
+                  <p className="text-xs sm:text-sm font-legan text-black text-center">
                     {config.thankyouDetail}
                   </p>
-                  
-                  <p className="text-xs sm:text-sm rounded-full text-center font-ovo mt-6 sm:mt-8 px-4 sm:px-6 py-1 sm:py-2 text-white uppercase">
+                  <p className="text-xs sm:text-sm rounded-full text-center font-ovo mt-6 sm:mt-8 px-4 sm:px-6 py-1 sm:py-2 text-black uppercase">
                     {config.coupleNames}
                   </p>
                 </div>
               </div>
 
-              <footer className="flex flex-col items-center mt-10 sm:mt-8">
+              <div className="flex-grow" />
+              <footer className="flex flex-col items-center mt-auto mb-2 sm:mb-4">
                 <p className="text-[0.4rem] sm:text-[0.5rem] uppercase text-center">
                   Created By
                 </p>
