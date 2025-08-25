@@ -194,7 +194,6 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 <p className="text-sm sm:text-sm mt-3 sm:mt-5 font-legan text-black">
                   {config.bibleVerseContent}
                 </p>
-                <p className="text-4xl sm:text-5xl md:text-6xl mt-4 sm:mt-5 font-wonder  ">{config.coupleNames}</p>
               </div>
             </div>
             {/* Slide 2 */}
