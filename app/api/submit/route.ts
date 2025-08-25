@@ -54,37 +54,45 @@ export async function POST(req: Request) {
       },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Log the error with details
     console.error("Error submitting wish:", error);
-    console.error("Error details:", JSON.stringify({
-      name: error.name,
-      message: error.message,
-      code: error.code,
-      stack: error.stack
-    }));
+    if (error && typeof error === 'object' && 'name' in error && 'message' in error) {
+      if (error instanceof Error) {
+        console.error("Error details:", JSON.stringify({
+          name: error.name,
+          message: error.message,
+          code: (error as { code?: number }).code,
+          stack: error.stack
+        }));
+      } else {
+        console.error("Error details:", error);
+      }
+    } else {
+      console.error("Error details:", error);
+    }
     
     // Return appropriate error response
-    if (error.name === 'ValidationError') {
+    if (error && typeof error === 'object' && 'name' in error && (error as { name?: string }).name === 'ValidationError') {
       return NextResponse.json(
-        { success: false, message: "Data tidak valid", details: error.message },
+        { success: false, message: "Data tidak valid", details: (error as { message?: string }).message },
         { status: 400 }
       );
     }
     
-    if (error.name === 'MongoServerError' && error.code === 11000) {
+    if (error && typeof error === 'object' && 'name' in error && 'code' in error && (error as { name?: string, code?: number }).name === 'MongoServerError' && (error as { code?: number }).code === 11000) {
       return NextResponse.json(
         { success: false, message: "Anda sudah mengirimkan ucapan sebelumnya" },
         { status: 409 }
       );
     }
     
-    if (error.message && error.message.includes("Database connection error")) {
+    if (error && typeof error === 'object' && 'message' in error && typeof (error as { message?: string }).message === 'string' && (error as { message?: string }).message?.includes("Database connection error")) {
       return NextResponse.json(
         { 
           success: false, 
           message: "Tidak dapat terhubung ke database, silakan coba lagi",
-          details: `Error connecting to MongoDB: ${error.message}`
+          details: `Error connecting to MongoDB: ${(error as { message?: string }).message}`
         },
         { status: 500 }
       );
@@ -94,7 +102,7 @@ export async function POST(req: Request) {
       { 
         success: false, 
         message: "Gagal mengirim ucapan, silakan coba lagi nanti",
-        details: error.message || "Unknown error"
+        details: (error && typeof error === 'object' && 'message' in error) ? (error as { message?: string }).message : String(error) || "Unknown error"
       },
       { status: 500 }
     );

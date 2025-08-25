@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { IoMdRefresh } from "react-icons/io";
-import { IoSend } from "react-icons/io5";
+// ...existing code...
 import { FiDownload } from "react-icons/fi";
 
 interface Wish {
@@ -20,7 +20,7 @@ const WishesList = () => {
   const [submitting, setSubmitting] = useState(false);
   const [exportLoading, setExportLoading] = useState(false);
   // Always show the form
-  const [showForm, setShowForm] = useState(true);
+  // ...existing code...
   
   // Form state
   const [name, setName] = useState("");
@@ -185,9 +185,13 @@ const WishesList = () => {
         setFormSuccess("");
       }, 3000);
       
-    } catch (error: any) {
+  } catch (error: unknown) {
       console.error("Error submitting wish:", error);
-      setFormError(error.message || "Gagal mengirim ucapan. Silakan coba lagi.");
+      let errorMsg = "Gagal mengirim ucapan. Silakan coba lagi.";
+      if (error && typeof error === "object" && "message" in error && typeof (error as { message?: string }).message === "string") {
+        errorMsg = (error as { message?: string }).message ?? errorMsg;
+      }
+      setFormError(errorMsg);
     } finally {
       setSubmitting(false);
     }

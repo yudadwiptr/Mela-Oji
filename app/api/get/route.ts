@@ -5,7 +5,7 @@ import Wish from "@/lib/models/Wish";
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get("page") || "1", 10);
-  let limit = parseInt(searchParams.get("limit") || "5", 10);
+  const limit = parseInt(searchParams.get("limit") || "5", 10);
   
   // For export functionality - if limit is very large, it's for export
   const isExport = limit > 100;

@@ -40,6 +40,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const { ref: mainRef, inView: isMainInView } = useInView({
     threshold: 0.5,
   });
+  // ...existing code...
 
   const { ref: main2Ref, inView: isMain2InView } = useInView({
     threshold: 0.5,
@@ -81,9 +82,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const { ref: slide11Ref, inView: isSlide11InView } = useInView({
     threshold: 0.5,
   });
-  const { ref: slide12Ref, inView: isSlide12InView } = useInView({
-    threshold: 0.5,
-  });
+  // ...existing code...
   const { ref: endRef, inView: isEndInView } = useInView({
     threshold: 0.5,
   });

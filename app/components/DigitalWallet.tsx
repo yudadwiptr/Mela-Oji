@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { config } from "@/lib/config";
-import Image from "next/image";
 
 const DigitalWallet = () => {
   const [copied, setCopied] = useState<string | null>(null);
