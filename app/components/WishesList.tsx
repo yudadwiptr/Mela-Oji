@@ -174,7 +174,7 @@ const WishesList = () => {
       setAttendance("Hadir");
       setGuests("1");
       setMessage("");
-      setFormSuccess("Ucapan berhasil terkirim!");
+      setFormSuccess("Ucapan berhasil dikirim kepada Mela & Oji!");
       
       // Refresh wishes list after successful submission
       fetchWishes(1);

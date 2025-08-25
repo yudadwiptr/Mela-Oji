@@ -10,12 +10,17 @@ import Form from "./Form";
 import WishesList from "./WishesList";
 import DigitalWallet from "./DigitalWallet";
 import { config } from "@/lib/config";
+import { useSearchParams } from "next/navigation";
 
 type WeddingScreenProps = {
   name?: string;
 };
 
 const WeddingScreen = ({ name }: WeddingScreenProps) => {
+  const searchParams = useSearchParams();
+  const toParam = searchParams.get("to");
+  const displayName = toParam || name || "Guest";
+
   const [fadeClass, setFadeClass] = useState("opacity-0");
   const [isOpen, setIsOpen] = useState(false);
   const audioRef = useRef(null);
@@ -149,7 +154,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             </div>
             <div>
               <p className="mt-5 text-lg uppercase font-ovo t text-black">
-                {name ? `Dear ${name},` : "WELCOME"}
+                {`Dear ${displayName},`}
               </p>
               {!isOpen ? (
                 <button
@@ -523,7 +528,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   >
                     <iframe
                       className="absolute top-0 left-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${config.prewedding.link}?autoplay=1&mute=1&loop=1`}
+                      src={`https://www.youtube.com/uhvvhkbaHac/${config.prewedding.link}?autoplay=1&mute=1&loop=1`}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerPolicy="strict-origin-when-cross-origin"
@@ -630,7 +635,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               </div>
 
               <div className="flex-grow" />
-              <footer className="flex flex-col items-center mt-auto mb-2 sm:mb-4">
+              <footer className="flex flex-col items-center mt-auto mb-4 sm:mb-6">
                 <p className="text-[0.4rem] sm:text-[0.5rem] uppercase text-center">
                   Created By
                 </p>
@@ -640,7 +645,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
 
             {/* New Section: Our Love Story */}
             <div
-              className="snap-start text-white h-screen flex flex-col justify-center pt-16 pb-16 px-8"
+              className="snap-start text-black h-screen flex flex-col justify-center pt-16 pb-16 px-8"
               style={{
                 backgroundImage: "url(/foto_utama.jpeg)",
                 backgroundSize: "cover",
@@ -651,33 +656,107 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 <h1 className="text-3xl text-black font-ovo uppercase mb-4">
                   Our Love Story
                 </h1>
-                <p className="text-sm font-legan text-black/80 mb-8">
-                  The journey that brought us together
-                </p>
-                <p className="text-xs font-legan text-black/80 mb-8">
+                <p className="text-base font-legan text-black/80 mb-8">
                   Every moment tells our story, every smile captures our love
                 </p>
-                <div className="grid grid-cols-2 gap-4">
-                  <img
-                    src="/foto_1.jpeg"
-                    alt="Couple walking"
-                    className="rounded-lg shadow-lg"
-                  />
-                  <img
-                    src="/foto_2.jpeg"
-                    alt="Couple holding hands"
-                    className="rounded-lg shadow-lg"
-                  />
-                  <img
-                    src="/foto_3.jpeg"
-                    alt="Couple smiling"
-                    className="rounded-lg shadow-lg"
-                  />
-                  <img
-                    src="/foto_4.jpeg"
-                    alt="Couple embracing"
-                    className="rounded-lg shadow-lg"
-                  />
+                <p className="text-base font-ovo text-black/80 mb-8">
+                  Swipe For More Moment!
+                </p>  
+                <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300">
+                  <div className="flex space-x-4">
+                    {/* Page 1 */}
+                    <div className="grid grid-cols-2 gap-4 w-full flex-shrink-0">
+                      <img
+                        src="/foto_1.jpeg"
+                        alt="Couple walking"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_2.jpeg"
+                        alt="Couple holding hands"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_3.jpeg"
+                        alt="Couple smiling"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_4.jpeg"
+                        alt="Couple embracing"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                    </div>
+                    {/* Page 2 */}
+                    <div className="grid grid-cols-2 gap-4 w-full flex-shrink-0">
+                      <img
+                        src="/foto_5.jpeg"
+                        alt="Couple walking"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_6.jpeg"
+                        alt="Couple holding hands"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_7.jpeg"
+                        alt="Couple smiling"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_8.jpeg"
+                        alt="Couple embracing"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                    </div>
+                    {/* Page 3 */}
+                    <div className="grid grid-cols-2 gap-4 w-full flex-shrink-0">
+                      <img
+                        src="/foto_9.jpeg"
+                        alt="Couple walking"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_10.jpeg"
+                        alt="Couple holding hands"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_11.jpeg"
+                        alt="Couple smiling"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_12.jpeg"
+                        alt="Couple embracing"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                    </div>
+                    {/* Page 4 */}
+                    <div className="grid grid-cols-2 gap-4 w-full flex-shrink-0">
+                      <img
+                        src="/foto_13.jpeg"
+                        alt="Couple walking"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_14.jpeg"
+                        alt="Couple holding hands"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_15.jpeg"
+                        alt="Couple smiling"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                      <img
+                        src="/foto_16.jpeg"
+                        alt="Couple embracing"
+                        className="rounded-lg shadow-lg object-cover w-full h-full"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
