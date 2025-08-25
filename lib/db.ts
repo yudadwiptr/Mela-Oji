@@ -11,14 +11,17 @@ const connectToDatabase = async () => {
 
   try {
     const mongoUri = process.env.MONGODB_URI;
-    
+
     if (!mongoUri) {
       console.error("MONGODB_URI environment variable is missing");
       throw new Error("MONGODB_URI is not defined in environment variables");
     }
-    
+
     console.log("Attempting to connect to MongoDB...");
-    await mongoose.connect(mongoUri);
+    await mongoose.connect(mongoUri, {
+      serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
+      socketTimeoutMS: 45000, // Increase socket timeout to 45 seconds
+    });
     isConnected = true;
     console.log("Connected to MongoDB database successfully");
   } catch (error) {
