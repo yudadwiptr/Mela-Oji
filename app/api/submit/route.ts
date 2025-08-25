@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: "Ucapan berhasil dikirim",
+        message: "Ucapan berhasil dikirim kepada Mela & Oji",
         wish: {
           id: newWish._id,
           name,

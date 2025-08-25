@@ -40,8 +40,6 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const { ref: mainRef, inView: isMainInView } = useInView({
     threshold: 0.5,
   });
-  // ...existing code...
-
   const { ref: main2Ref, inView: isMain2InView } = useInView({
     threshold: 0.5,
   });
@@ -82,8 +80,6 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const { ref: slide11Ref, inView: isSlide11InView } = useInView({
     threshold: 0.5,
   });
-  // ...existing code...
-  // endRef dan isEndInView dihapus karena tidak digunakan
 
   useEffect(() => {
     const video = document.querySelector("iframe");
@@ -640,6 +636,50 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 </p>
                 <p className="text-[0.5rem] sm:text-xs">© YUMA STUDIO | 2025</p>
               </footer>
+            </div>
+
+            {/* New Section: Our Love Story */}
+            <div
+              className="snap-start text-white h-screen flex flex-col justify-center pt-16 pb-16 px-8"
+              style={{
+                backgroundImage: "url(/foto_utama.jpeg)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div className="text-center">
+                <h1 className="text-3xl text-black font-ovo uppercase mb-4">
+                  Our Love Story
+                </h1>
+                <p className="text-sm font-legan text-black/80 mb-8">
+                  The journey that brought us together
+                </p>
+                <p className="text-xs font-legan text-black/80 mb-8">
+                  Every moment tells our story, every smile captures our love
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <img
+                    src="/foto_1.jpeg"
+                    alt="Couple walking"
+                    className="rounded-lg shadow-lg"
+                  />
+                  <img
+                    src="/foto_2.jpeg"
+                    alt="Couple holding hands"
+                    className="rounded-lg shadow-lg"
+                  />
+                  <img
+                    src="/foto_3.jpeg"
+                    alt="Couple smiling"
+                    className="rounded-lg shadow-lg"
+                  />
+                  <img
+                    src="/foto_4.jpeg"
+                    alt="Couple embracing"
+                    className="rounded-lg shadow-lg"
+                  />
+                </div>
+              </div>
             </div>
           </>
         )}

@@ -53,16 +53,16 @@ body {
 
 @keyframes animate {
  0% {
-  background-image: url(../public/foto_1.jpeg);
+  background-image: url(../public/foto_utama.jpeg);
  }
  45% {
-  background-image: url(../public/foto_1.jpeg);
+  background-image: url(../public/foto_utama.jpeg);
  }
   85% {
-    background-image: url(../public/foto_1.jpeg);
+    background-image: url(../public/foto_utama.jpeg);
   }
   100% {
-    background-image: url(../public/foto_1.jpeg);
+    background-image: url(../public/foto_utama.jpeg);
   }
 }
 
