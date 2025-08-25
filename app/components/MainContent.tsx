@@ -83,9 +83,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     threshold: 0.5,
   });
   // ...existing code...
-  const { ref: endRef, inView: isEndInView } = useInView({
-    threshold: 0.5,
-  });
+  // endRef dan isEndInView dihapus karena tidak digunakan
 
   useEffect(() => {
     const video = document.querySelector("iframe");
