@@ -85,10 +85,12 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
       <div
         className="md:flex justify-center hidden items-end pb-12 w-2/3 h-1/2 md:h-full"
       >
+        {/* Updated Image Component */}
         <Image
           src="/foto_1_samping.jpeg"
           alt="Hero Image"
-          layout="fill"
+          width={1920} // Removed 'fill' property and kept 'width' and 'height'
+          height={1080} // Added required height property
           objectFit="cover"
           priority
           placeholder="blur"
@@ -167,7 +169,11 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 autoPlay
                 loop
                 muted
-                className="absolute top-0 left-0 w-full h-full object-cover"
+                playsInline
+                controls={false}
+                controlsList="nodownload noplaybackrate nofullscreen"
+                disablePictureInPicture
+                className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
               />
               <div
                 ref={slide1Ref}
@@ -366,7 +372,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                       09:00 WIB
                     </p>
                     <div className="border-t border-gray-700/50 my-1.5"></div>
-                    <p className="text-2xs sm:text-xs text-center font-legan text-white/90">
+                    <p className="text-xs sm:text-xs text-center font-legan text-white/90">
                       Gedung Serbaguna Sukasari <br />
                       Lawanggintung RT.01/RW.03, Kec. Bogor Sel., Kota Bogor
                     </p>
@@ -381,7 +387,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                       11:00 WIB
                     </p>
                     <div className="border-t border-gray-700/50 my-1.5"></div>
-                    <p className="text-2xs sm:text-xs text-center font-legan text-white/90">
+                    <p className="text-xs sm:text-xs text-center font-legan text-white/90">
                       Gedung Serbaguna Sukasari <br />
                       Lawanggintung RT.01/RW.03, Kec. Bogor Sel., Kota Bogor
                     </p>
@@ -402,7 +408,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   </div>
                   
                   {/* Couple Names - Similar to Journey in Love */}
-                  <div className="mt-8 flex items-center justify-center w-full">
+                  <div className="mt-8 flex items-center justify-center w-full hidden">
                     <div className="flex items-center">
                       <div className="h-[1px] w-12 sm:w-16 bg-white/40"></div>
                       <span className="px-3 font-thesignature text-2xl sm:text-3xl text-white">
@@ -427,7 +433,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               ref={slide6Ref}
               className={` ${isSlide6InView ? "active" : ""} fadeInMove flex items-center flex-col w-full`}
               >
-              <div className="pt-40 w-full flex justify-center">
+              <div className="pt-20 w-full flex justify-center">
                 <h1 className="text-3xl text-center text-black text-bold font-ovo">
                 ALMOST TIME FOR OUR CELEBRATION
                 </h1>
@@ -553,6 +559,8 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                     key={src}
                     src={src}
                     alt={`Love story photo ${i + 1}`}
+                    width={600} // Adjusted for mobile-friendly size
+                    height={400} // Adjusted for mobile-friendly size
                     loading="lazy"
                     className="mb-4 w-full rounded-lg shadow-lg object-cover
                                [break-inside:avoid] hover:opacity-95 transition"
@@ -561,7 +569,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               </div>
 
               {/* Signature at the bottom */}
-<div className="mt-4 flex justify-center w-full">
+<div className="mt-8 flex justify-center w-full">
   <div className="flex flex-col items-center px-3">
     {/* Teks atas */}
     <span className="font-ovo uppercase text-2xs sm:text-sm text-black mb-1">

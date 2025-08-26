@@ -108,7 +108,7 @@ const DigitalWallet = () => {
               {recipientInfo.address}
             </p>
 
-            <div className="flex justify-center mt-3">
+            <div className="flex justify-center mt-3 hidden">
               <button
                 className="text-xs font-legan text-white bg-black/40 px-3 py-1 rounded-md border border-amber-200 hover:bg-white/20 transition"
                 onClick={() => navigator.clipboard.writeText(`${recipientInfo.name} ${recipientInfo.phone}\n${recipientInfo.address}`)}
