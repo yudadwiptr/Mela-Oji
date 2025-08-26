@@ -6,22 +6,11 @@ import { FaInstagram } from "react-icons/fa";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 import CountdownTimer from "./Countdown";
-import Form from "./Form";
 import WishesList from "./WishesList";
 import DigitalWallet from "./DigitalWallet";
 import { config } from "@/lib/config";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-
-// Add TypeScript declaration for YT namespace
-declare global {
-  interface Window {
-    YT: {
-      Player: YT.Player;
-      PlayerEvent: YT.PlayerEvent;
-    };
-  }
-}
 
 type WeddingScreenProps = {
   name?: string;
@@ -81,56 +70,12 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const { ref: slide6Ref, inView: isSlide6InView } = useInView({
     threshold: 0.5,
   });
-  const { ref: slide7Ref, inView: isSlide7InView } = useInView({
-    threshold: 0.5,
-  });
-  const { ref: slide8Ref, inView: isSlide8InView } = useInView({
-    threshold: 0.5,
-  });
-  const { ref: slide9Ref, inView: isSlide9InView } = useInView({
-    threshold: 0.5,
-  });
   const { ref: slide10Ref, inView: isSlide10InView } = useInView({
     threshold: 0.5,
   });
   const { ref: slide11Ref, inView: isSlide11InView } = useInView({
     threshold: 0.5,
   });
-
-  // Import YouTube IFrame API
-  useEffect(() => {
-    const loadYouTubeAPI = () => {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-    };
-
-    if (!window.YT) {
-      loadYouTubeAPI();
-    }
-  }, []);
-
-  useEffect(() => {
-    const video = document.querySelector("iframe");
-    if (video && window.YT) {
-      const player = new (window.YT.Player as any)(video, {
-        events: {
-          onReady: (event: YT.PlayerEvent) => {
-            if (isSlide8InView) {
-              event.target.playVideo();
-            } else {
-              event.target.pauseVideo();
-            }
-          },
-        },
-      });
-
-      return () => {
-        player.destroy();
-      };
-    }
-  }, [isSlide8InView]);
 
   return (
     <div
@@ -604,7 +549,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   "/foto_9.jpeg", "/foto_10.jpeg", "/foto_11.jpeg", "/foto_12.jpeg",
                   "/foto_13.jpeg", "/foto_14.jpeg", "/foto_15.jpeg", "/foto_16.jpeg",
                 ].map((src, i) => (
-                  <img
+                  <Image
                     key={src}
                     src={src}
                     alt={`Love story photo ${i + 1}`}
