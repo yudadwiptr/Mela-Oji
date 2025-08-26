@@ -70,5 +70,5 @@ export const config = {
         detail: process.env.NEXT_PUBLIC_RSVP_DETAIL || "Default RSVP Detail",
     },
     thankyou: process.env.NEXT_PUBLIC_THANKYOU || "TERIMA KASIH ",
-    thankyouDetail: process.env.NEXT_PUBLIC_THANKYOU_DETAIL || "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai.",
+    thankyouDetail: process.env.NEXT_PUBLIC_THANKYOU_DETAIL || "Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami berdua. Atas kehadiran dan doa yang tulus, kami ucapkan terima kasih yang sebesar-besarnya.",
 };

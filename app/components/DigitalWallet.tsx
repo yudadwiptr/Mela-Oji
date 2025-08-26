@@ -3,6 +3,12 @@
 import React, { useState } from "react";
 import { config } from "@/lib/config";
 
+const recipientInfo = {
+  name: "Melani Alvina |",
+  phone: "081906604942",
+  address: "Jl. Pangeran Asogiri Rt.03 Rw.04 Tanah Baru No.10 Bogor Utara Kota Bogor (16154)",
+};
+
 const DigitalWallet = () => {
   const [copied, setCopied] = useState<string | null>(null);
   const [showAll, setShowAll] = useState<Record<number, boolean>>({});
@@ -23,8 +29,8 @@ const DigitalWallet = () => {
     <section className="text-black">
       {/* Header */}
       <div className="text-center space-y-2 mb-5">
-        <h2 className="text-xl sm:text-2xl font-ovo">Amplop Digital</h2>
-        <p className="text-xs sm:text-sm font-legan text-black/70 max-w-md mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-ovo">Amplop Digital</h2>
+        <p className="text-s sm:text-sm font-legan text-black/70 max-w-md mx-auto">
           Doa restu Anda adalah hadiah terbaik. Bila berkenan memberi hadiah,
           berikut detail rekening & alamat.
         </p>
@@ -38,26 +44,25 @@ const DigitalWallet = () => {
           return (
             <div
               key={`${acc.bank}-${i}`}
-              className="rounded-xl border border-black/10 bg-white/70 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow"
+              className="rounded-xl border border-black/10 bg-black/70 backdrop-blur-md shadow-sm"
             >
               <div className="px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span
-                    className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[10px] 
-                    ${acc.bank === "BCA" ? "bg-blue-600/10 text-blue-700" : ""}
-                    ${acc.bank === "Mandiri" ? "bg-yellow-500/10 text-yellow-700" : ""}`}
+                    className={` 
+                    ${acc.bank === "BCA" ? "" : ""}
+                    ${acc.bank === "Mandiri" ? "" : ""}`}
                     aria-hidden
                   >
-                    ●
                   </span>
-                  <p className="font-ovo text-base">Bank {acc.bank}</p>
+                  <p className="font-ovo text-base text-amber-200">Bank {acc.bank}</p>
                 </div>
 
                 {/* Copy */}
                 <button
                   onClick={() => copyToClipboard(accNumber, `bank-${i}`)}
-                  className={`text-xs rounded-full px-2 py-1 border
-                    ${copied === `bank-${i}` ? "border-green-400 text-green-700 bg-green-50" : "border-black/15 text-black/70 hover:bg-black/5"}`}
+                  className={`text-xs text-white rounded-full px-2 py-1 border border-amber-200
+                    ${copied === `bank-${i}` ? "border-black-400 text-white-700 bg-black-50" : "border-black/15 text-black/70 hover:bg-black/5"}`}
                   aria-label="Salin nomor rekening"
                   title="Salin nomor rekening"
                 >
@@ -67,20 +72,20 @@ const DigitalWallet = () => {
 
               <div className="px-4 pb-3">
                 <div className="rounded-lg bg-black/5 border border-black/10 px-3 py-2 flex items-center justify-between">
-                  <code className="font-mono text-sm tracking-wide">
+                  <code className="font-mono text-sm tracking-wide text-white">
                     {isShown ? accNumber : mask(accNumber)}
                   </code>
 
                   <button
                     onClick={() => toggleMask(i)}
-                    className="text-[11px] px-2 py-1 rounded border border-black/10 text-black/60 hover:bg-black/5"
+                    className="text-[11px] text-white px-2 py-1 rounded border border-amber-200 hover:bg-black/5"
                     aria-label={isShown ? "Sembunyikan nomor" : "Tampilkan nomor"}
                   >
                     {isShown ? "Sembunyi" : "Tampilkan"}
                   </button>
                 </div>
 
-                <p className="text-xs text-center mt-2 font-legan">
+                <p className="text-s text-center mt-2 font-legan text-white">
                   {acc.accountName}
                 </p>
               </div>
@@ -89,19 +94,31 @@ const DigitalWallet = () => {
         })}
       </div>
 
-      {/* Alamat pengiriman */}
-      {config.digitalWallet.address && (
-        <div className="max-w-lg md:max-w-3xl mx-auto mt-4">
-          <div className="rounded-xl border border-black/10 bg-white/70 backdrop-blur-md shadow-sm">
-            <div className="px-4 py-3">
-              <p className="text-center font-ovo text-sm">Alamat untuk kirim hadiah</p>
-              <p className="text-xs font-legan text-center text-black/70 mt-1">
-                {config.digitalWallet.address}
-              </p>
+      {/* Recipient Information */}
+      <div className="max-w-lg md:max-w-3xl mx-auto mt-4">
+        <div className="rounded-xl border border-black/10 bg-black/70 backdrop-blur-md shadow-sm">
+          <div className="px-4 py-3">
+            <p className="text-center font-ovo text-s text-amber-200">ALAMAT LENGKAP</p>
+
+            <p className="text-s font-legan text-center text-white mt-1 flex justify-center gap-2">
+              <span>{recipientInfo.name}</span>
+              <span>{recipientInfo.phone}</span>
+            </p>
+            <p className="text-s font-legan text-center text-white mt-1">
+              {recipientInfo.address}
+            </p>
+
+            <div className="flex justify-center mt-3">
+              <button
+                className="text-xs font-legan text-white bg-black/40 px-3 py-1 rounded-md border border-amber-200 hover:bg-white/20 transition"
+                onClick={() => navigator.clipboard.writeText(`${recipientInfo.name} ${recipientInfo.phone}\n${recipientInfo.address}`)}
+              >
+                Salin Alamat
+              </button>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 };

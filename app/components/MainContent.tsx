@@ -17,8 +17,8 @@ import Image from "next/image";
 declare global {
   interface Window {
     YT: {
-      Player: any;
-      PlayerEvent: any;
+      Player: YT.Player;
+      PlayerEvent: YT.PlayerEvent;
     };
   }
 }
@@ -114,9 +114,9 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   useEffect(() => {
     const video = document.querySelector("iframe");
     if (video && window.YT) {
-      const player = new window.YT.Player(video, {
+      const player = new (window.YT.Player as any)(video, {
         events: {
-          onReady: (event: any) => {
+          onReady: (event: YT.PlayerEvent) => {
             if (isSlide8InView) {
               event.target.playVideo();
             } else {
@@ -315,14 +315,14 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 <h1
                   ref={slide4Ref}
                   className={`text-xl sm:text-xl md:text-5xl text-white font-ovo fadeInMove ${isSlide4InView ? " active" : ""
-                    }`}
+                  } text-center`}
                 >
-                  A journey in love
+                   A JOURNEY IN LOVE
                 </h1>
                 <h3
                   ref={slide4Ref}
-                  className={`uppercase font-legan text-m sm:text-xl mt-3 sm:mt-5 mb-1 sm:mb-2 fadeInMoveSlow ${isSlide4InView ? " active" : ""
-                    }`}
+                  className={`uppercase font-legan text-m sm:text-xl mt-3 sm:mt-5 mb-1 sm:mb-2 text-amber-200 fadeInMoveSlow ${isSlide4InView ? " active" : ""
+                  }`}
                 >
                   {config.timeline_1}
                 </h3>
@@ -346,7 +346,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 })()}
                 <h3
                   ref={slide4Ref}
-                  className={`uppercase font-legan text-base sm:text-xl mt-3 sm:mt-5 mb-1 sm:mb-2 fadeInMoveSlow ${isSlide4InView ? " active" : ""
+                  className={`uppercase font-legan text-base sm:text-xl mt-3 sm:mt-5 mb-1 sm:mb-2 text-amber-200 fadeInMoveSlow ${isSlide4InView ? " active" : ""
                     }`}
                 >
                   {config.timeline_2}
@@ -359,7 +359,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 </p>
                 <h3
                   ref={slide4Ref}
-                  className={`uppercase font-legan text-base sm:text-xl mt-3 sm:mt-5 mb-1 sm:mb-2 fadeInMoveSlow ${isSlide4InView ? " active" : ""
+                  className={`uppercase font-legan text-base sm:text-xl mt-3 sm:mt-5 mb-1 sm:mb-2 text-amber-200 fadeInMoveSlow ${isSlide4InView ? " active" : ""
                     }`}
                 >
                   {config.timeline_3}
@@ -482,8 +482,8 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               ref={slide6Ref}
               className={` ${isSlide6InView ? "active" : ""} fadeInMove flex items-center flex-col w-full`}
               >
-              <div className="mb-6 w-full flex justify-center">
-                <h1 className="text-2xl text-center text-black font-ovo">
+              <div className="pt-40 w-full flex justify-center">
+                <h1 className="text-3xl text-center text-black text-bold font-ovo">
                 ALMOST TIME FOR OUR CELEBRATION
                 </h1>
               </div>
@@ -496,7 +496,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`Pernikahan ${config.coupleNames}`)}&dates=${encodeURIComponent(new Date(config.eventDate).toISOString().replace(/-|:|\.\d+/g, ""))}&details=${encodeURIComponent(`Akad: ${config.holyMatrimony.time} - ${config.holyMatrimony.place}. Resepsi: ${config.weddingReception.time} - ${config.weddingReception.place}`)}&location=${encodeURIComponent(config.weddingReception.place)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="cursor-pointer hover:bg-black/20 transition-colors flex items-center gap-x-1.5 text-center font-legan text-xs bg-white/80 backdrop-blur-sm border border-black/20 rounded-full w-fit px-4 py-1.5 text-black shadow-md"
+                  className="cursor-pointer hover:bg-black/20 transition-colors flex items-center gap-x-1.5 text-center font-legan text-xs bg-white/80 backdrop-blur-sm border border-black/10 rounded-full w-fit px-4 py-1.5 text-black shadow-md"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
                   <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
@@ -507,114 +507,6 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               </div>
               </div>
             </div>
-            {/* Slide 7 */}
-            {config.livestreaming.enabled && (
-              <div
-                className="snap-start  text-white h-screen flex flex-col justify-between pt-16 pb-32 px-12 "
-                style={{
-                  backgroundImage: `url(/foto_1_samping.jpeg)`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <h1
-                  ref={slide7Ref}
-                  className={`text-2xl text-white  font-ovo fadeInMoveSlow ${isSlide7InView ? "active" : ""
-                    }`}
-                >
-                  JOIN OUR EXCLUSIVE LIVE STREAMING EVENT
-                </h1>
-
-                <div
-                  className={`mt-5 mx-auto flex flex-col fadeInMove ${isSlide7InView ? "active" : ""
-                    }`}
-                  ref={slide7Ref}
-                >
-                  <h3 className="uppercase font-ovo text-sm mt-5 mb-2">
-                    {new Date(config.eventDate).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                    <br /> {config.livestreaming.time}
-                  </h3>
-                  <p className="text-sm font-legan text-white">
-                    {config.livestreaming.detail}
-                  </p>
-                  <Link
-                    href={config.livestreaming.link}
-                    target="_blank"
-                    className="cursor-pointer hover:text-white/20 text-sm rounded-full flex items-center gap-x-2 text-center font-legan mt-5 bg-[#3B3B3B] w-fit px-6 py-2 text-white"
-                  >
-                    Join Live Streaming
-                  </Link>
-                </div>
-              </div>)}
-            {/* SLIDE 8 */}
-            {config.prewedding.enabled && (
-              <div
-                className="snap-start text-white h-screen flex flex-col justify-center pt-16 pb-16 px-8 "
-                style={{
-                  backgroundImage: `url(/slide_8.jpeg)`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <div
-                  ref={slide8Ref}
-                  className={`${isSlide8InView ? "active" : ""} fadeInMove `}
-                >
-                  <h1 className="text-3xl text-white  font-ovo text-center uppercase">
-                    Unveiling Our Prewedding Story
-                  </h1>
-                  <div
-                    className="mt-10 mx-auto w-full max-w-2xl relative"
-                    style={{ paddingBottom: "56.25%", height: 0 }}
-                  >
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full"
-                      src={`https://www.youtube.com/uhvvhkbaHac?autoplay=1&mute=1&enablejsapi=1`}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-
-                  <div className="-mt-12 w-72 transform skew-x-6 drop-shadow">
-                    <p className="text-3xl font-thesignature text-white/80 ">
-                      {config.prewedding.detail}
-                    </p>
-                  </div>
-                </div>
-              </div>)}
-
-            {/* SLIDE 9 */}
-            {config.rsvp.enabled && (
-            <div
-              className="snap-start text-white h-screen flex flex-col justify-center pt-16 pb-16 px-8"
-              style={{
-                backgroundImage: `url(/slide_9.jpeg)`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              <div
-                ref={slide9Ref}
-                className={`${isSlide9InView ? "active" : ""} fadeInMove`}
-              >
-                <h1 className="text-3xl text-white font-ovo text-center uppercase">
-                  RSVP AND WISHES
-                </h1>
-                <p className="text-sm font-legan text-white/80 text-center">
-                {config.rsvp.detail}
-                </p>
-
-                <Form />
-              </div>
-            </div>
-            )}
 
             {/* SLIDE 10 - Wishes */}
             <div
@@ -665,34 +557,29 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 backgroundImage: `url(/slide_10.jpeg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
+                backgroundColor: "rgba(0, 0, 0, 0.5)", // Add a semi-transparent overlay
+                backgroundBlendMode: "overlay", // Blend the overlay with the image
               }}
             >
               {/* Ucapan terima kasih benar-benar di atas */}
-              <div className="w-full flex flex-col items-center fadeIn">
-                <h1 className="text-3xl text-black font-ovo text-center uppercase mb-2">
+              <div className="sm:mt-4 mx-auto flex flex-col fade-in">
+                <h1 className="text-4xl text-white font-ovo text-center uppercase mt-20 mb-6 fadeIn">
                   {config.thankyou}
                 </h1>
-                <div className="sm:mt-3 mx-auto flex flex-col ">
-                  <p className="text-xs sm:text-sm font-legan text-black text-center">
+                <div className="sm:mt-4 mx-auto flex flex-col fade-in">
+                  <p className="text-base sm:text-sm font-legan text-white text-center fadeIn">
                     {config.thankyouDetail}
-                  </p>
-                  <p className="text-xs sm:text-sm rounded-full text-center font-ovo mt-6 sm:mt-8 px-4 sm:px-6 py-1 sm:py-2 text-black uppercase">
-                    {config.coupleNames}
+                    
+                  <p className="px-3 font-thesignature text-2xl sm:text-3xl text-white mt-6">
+                        {config.coupleNames}
+                    </p>
                   </p>
                 </div>
               </div>
+            </div>
 
-  <div className="flex-grow" />
-  <footer className="flex flex-col items-center mt-auto mb-4 sm:mb-6">
-    <p className="text-[0.4rem] sm:text-[0.5rem] uppercase text-center">
-      Created By
-    </p>
-    <p className="text-[0.5rem] sm:text-xs">© YUMA STUDIO | 2025</p>
-  </footer>
-</div>
-
-{/* New Section: Our Love Story (Masonry) */}
-<div
+            {/* New Section: Our Love Story (Masonry) */}
+            <div
   className="snap-start text-black h-screen flex flex-col pt-16 pb-16 px-8 overflow-y-auto"
   style={{
     backgroundImage: "url(/foto_utama.jpeg)",
@@ -712,14 +599,14 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                               [column-fill:_balance]">
                 {/* Gunakan mb-4 + break-inside avoid agar layout rapi */}
                 {[
-                  "/foto_1.jpeg","/foto_2.jpeg","/foto_3.jpeg","/foto_4.jpeg",
-                  "/foto_5.jpeg","/foto_6.jpeg","/foto_7.jpeg","/foto_8.jpeg",
-                  "/foto_9.jpeg","/foto_10.jpeg","/foto_11.jpeg","/foto_12.jpeg",
-                  "/foto_13.jpeg","/foto_14.jpeg","/foto_15.jpeg","/foto_16.jpeg",
+                  "/foto_1.jpeg", "/foto_2.jpeg", "/foto_3.jpeg", "/foto_4.jpeg",
+                  "/foto_5.jpeg", "/foto_6.jpeg", "/foto_7.jpeg", "/foto_8.jpeg",
+                  "/foto_9.jpeg", "/foto_10.jpeg", "/foto_11.jpeg", "/foto_12.jpeg",
+                  "/foto_13.jpeg", "/foto_14.jpeg", "/foto_15.jpeg", "/foto_16.jpeg",
                 ].map((src, i) => (
                   <img
                     key={src}
-                    src={typeof src === 'string' ? src : ''}
+                    src={src}
                     alt={`Love story photo ${i + 1}`}
                     loading="lazy"
                     className="mb-4 w-full rounded-lg shadow-lg object-cover
@@ -729,15 +616,24 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               </div>
 
               {/* Signature at the bottom */}
-              <div className="mt-4 flex items-center justify-center w-full">
-                <div className="flex items-center">
-                  <div className="h-[1px] w-12 sm:w-16 bg-black/40"></div>
-                  <span className="px-3 font-thesignature text-2xl sm:text-3xl text-black">
-                    Mela & Oji
-                  </span>
-                  <div className="h-[1px] w-12 sm:w-16 bg-black/40"></div>
-                </div>
-              </div>
+<div className="mt-4 flex justify-center w-full">
+  <div className="flex flex-col items-center px-3">
+    {/* Teks atas */}
+    <span className="font-ovo uppercase text-2xs sm:text-sm text-black mb-1">
+      Created By
+    </span>
+
+    {/* Teks dengan garis kiri-kanan */}
+    <div className="flex items-center">
+      <div className=""></div>
+      <a href="https://www.instagram.com/yudadwiptr/" target="_blank" rel="noopener noreferrer" className="font-ovo uppercase text-xs sm:text-sm text-black mb-1">
+        © YUMA STUDIO | 2025
+      </a>
+      <div className=""></div>
+    </div>
+    <p className="text-[0.5rem] sm:text-xs text-center"></p>
+  </div>
+</div>
             </div>
           </>
         )}
