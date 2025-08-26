@@ -11,6 +11,17 @@ import WishesList from "./WishesList";
 import DigitalWallet from "./DigitalWallet";
 import { config } from "@/lib/config";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+
+// Add TypeScript declaration for YT namespace
+declare global {
+  interface Window {
+    YT: {
+      Player: any;
+      PlayerEvent: any;
+    };
+  }
+}
 
 type WeddingScreenProps = {
   name?: string;
@@ -86,14 +97,38 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     threshold: 0.5,
   });
 
+  // Import YouTube IFrame API
+  useEffect(() => {
+    const loadYouTubeAPI = () => {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    };
+
+    if (!window.YT) {
+      loadYouTubeAPI();
+    }
+  }, []);
+
   useEffect(() => {
     const video = document.querySelector("iframe");
-    if (video) {
-      if (isSlide8InView) {
-        video.src += "&autoplay=1"; // Mulai video
-      } else {
-        video.src = video.src.replace("&autoplay=1", ""); // Hentikan video
-      }
+    if (video && window.YT) {
+      const player = new window.YT.Player(video, {
+        events: {
+          onReady: (event: any) => {
+            if (isSlide8InView) {
+              event.target.playVideo();
+            } else {
+              event.target.pauseVideo();
+            }
+          },
+        },
+      });
+
+      return () => {
+        player.destroy();
+      };
     }
   }, [isSlide8InView]);
 
@@ -104,12 +139,16 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
       {/* Gambar sisi kiri Wide Untuk Komputer */}
       <div
         className="md:flex justify-center hidden items-end pb-12 w-2/3 h-1/2 md:h-full"
-        style={{
-          backgroundImage: `url(/foto_1_samping.jpeg)`, //refer to base 1st photo
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
       >
+        <Image
+          src="/foto_1_samping.jpeg"
+          alt="Hero Image"
+          layout="fill"
+          objectFit="cover"
+          priority
+          placeholder="blur"
+          blurDataURL="/foto_1_samping.jpeg"
+        />
         <div
           className={`bottom-10 left-20 font-ovo text-lg text-black tracking-[5px] uppercase`}
         >
@@ -121,7 +160,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
       <div className="w-full md:w-1/3 h-full overflow-y-scroll snap-y snap-mandatory scroll-smooth">
         <div
           id="backgroundWedding"
-          className=" snap-start  w-full h-screen flex items-center justify-center "
+          className=" snap-start w-full h-screen flex items-center justify-center scroll-mt-20"
         >
           <div className="text-center p-5 flex flex-col h-full justify-between py-20">
             <div className="gap-y-2 md:gap-y-4 flex flex-col">
@@ -176,21 +215,28 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
           <>
             {/* Slide 1 */}
             <div
-              className={`text-white h-screen flex pt-8 sm:pt-12 p-4 sm:p-5 px-6 sm:px-12 snap-start`}
-              style={{
-                backgroundImage: `url(/slide_1.jpeg)`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
+              className={`text-white h-screen flex pt-8 sm:pt-12 p-4 sm:p-5 px-6 sm:px-12 snap-start relative`}
             >
+              <video
+                src="/mela-oji.mp4"
+                autoPlay
+                loop
+                muted
+                className="absolute top-0 left-0 w-full h-full object-cover"
+              />
               <div
                 ref={slide1Ref}
-                className={` ${isSlide1InView ? "active" : ""}  fadeInMove`}
+                className={`absolute inset-0 flex flex-col items-center justify-center text-center ${isSlide1InView ? "active" : ""} fadeInMove`}
+                style={{
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  color: "white",
+                  padding: "1rem",
+                }}
               >
-                <h1 className="text-xl sm:text-xl md:text-4xl font-ovo tracking-wide text-black uppercase">
+                <h1 className="text-xl sm:text-xl md:text-4xl font-ovo tracking-wide uppercase mb-4">
                   {config.bibleVerse}
                 </h1>
-                <p className="text-sm sm:text-sm mt-3 sm:mt-5 font-legan text-black">
+                <p className="text-sm sm:text-sm font-legan text-justify">
                   {config.bibleVerseContent}
                 </p>
               </div>
@@ -528,7 +574,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   >
                     <iframe
                       className="absolute top-0 left-0 w-full h-full"
-                      src={`https://www.youtube.com/uhvvhkbaHac/${config.prewedding.link}?autoplay=1&mute=1&loop=1`}
+                      src={`https://www.youtube.com/uhvvhkbaHac?autoplay=1&mute=1&enablejsapi=1`}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerPolicy="strict-origin-when-cross-origin"
@@ -607,6 +653,8 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 className={`${isSlide11InView ? "active" : ""} fadeInMove`}
               >
                 <DigitalWallet />
+                {/* Address for sending gifts */}
+                
               </div>
             </div>
 
@@ -620,7 +668,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               }}
             >
               {/* Ucapan terima kasih benar-benar di atas */}
-              <div className="w-full flex flex-col items-center">
+              <div className="w-full flex flex-col items-center fadeIn">
                 <h1 className="text-3xl text-black font-ovo text-center uppercase mb-2">
                   {config.thankyou}
                 </h1>
@@ -634,129 +682,60 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 </div>
               </div>
 
-              <div className="flex-grow" />
-              <footer className="flex flex-col items-center mt-auto mb-4 sm:mb-6">
-                <p className="text-[0.4rem] sm:text-[0.5rem] uppercase text-center">
-                  Created By
-                </p>
-                <p className="text-[0.5rem] sm:text-xs">© YUMA STUDIO | 2025</p>
-              </footer>
-            </div>
+  <div className="flex-grow" />
+  <footer className="flex flex-col items-center mt-auto mb-4 sm:mb-6">
+    <p className="text-[0.4rem] sm:text-[0.5rem] uppercase text-center">
+      Created By
+    </p>
+    <p className="text-[0.5rem] sm:text-xs">© YUMA STUDIO | 2025</p>
+  </footer>
+</div>
 
-            {/* New Section: Our Love Story */}
-            <div
-              className="snap-start text-black h-screen flex flex-col justify-center pt-16 pb-16 px-8"
-              style={{
-                backgroundImage: "url(/foto_utama.jpeg)",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              <div className="text-center">
-                <h1 className="text-3xl text-black font-ovo uppercase mb-4">
-                  Our Love Story
-                </h1>
-                <p className="text-base font-legan text-black/80 mb-8">
-                  Every moment tells our story, every smile captures our love
-                </p>
-                <p className="text-base font-ovo text-black/80 mb-8">
-                  Swipe For More Moment!
-                </p>  
-                <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300">
-                  <div className="flex space-x-4">
-                    {/* Page 1 */}
-                    <div className="grid grid-cols-2 gap-4 w-full flex-shrink-0">
-                      <img
-                        src="/foto_1.jpeg"
-                        alt="Couple walking"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_2.jpeg"
-                        alt="Couple holding hands"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_3.jpeg"
-                        alt="Couple smiling"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_4.jpeg"
-                        alt="Couple embracing"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                    </div>
-                    {/* Page 2 */}
-                    <div className="grid grid-cols-2 gap-4 w-full flex-shrink-0">
-                      <img
-                        src="/foto_5.jpeg"
-                        alt="Couple walking"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_6.jpeg"
-                        alt="Couple holding hands"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_7.jpeg"
-                        alt="Couple smiling"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_8.jpeg"
-                        alt="Couple embracing"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                    </div>
-                    {/* Page 3 */}
-                    <div className="grid grid-cols-2 gap-4 w-full flex-shrink-0">
-                      <img
-                        src="/foto_9.jpeg"
-                        alt="Couple walking"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_10.jpeg"
-                        alt="Couple holding hands"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_11.jpeg"
-                        alt="Couple smiling"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_12.jpeg"
-                        alt="Couple embracing"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                    </div>
-                    {/* Page 4 */}
-                    <div className="grid grid-cols-2 gap-4 w-full flex-shrink-0">
-                      <img
-                        src="/foto_13.jpeg"
-                        alt="Couple walking"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_14.jpeg"
-                        alt="Couple holding hands"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_15.jpeg"
-                        alt="Couple smiling"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                      <img
-                        src="/foto_16.jpeg"
-                        alt="Couple embracing"
-                        className="rounded-lg shadow-lg object-cover w-full h-full"
-                      />
-                    </div>
-                  </div>
+{/* New Section: Our Love Story (Masonry) */}
+<div
+  className="snap-start text-black h-screen flex flex-col pt-16 pb-16 px-8 overflow-y-auto"
+  style={{
+    backgroundImage: "url(/foto_utama.jpeg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+              <div className="text-center mb-6">
+                <h1 className="text-xs text-black font-ovo uppercase mb-2">Our Love Story</h1>
+                <p className="text-3xl font-legan text-black/80">The journey that brought us together</p>
+                <p className="text-xs font-ovo text-black/70 mt-2">Every moment tells our story, every smile captures our love</p>
+              </div>
+
+              {/* Masonry container */}
+              <div className="mx-auto w-full max-w-3xl md:max-w-4xl
+                              columns-2 md:columns-3 gap-4
+                              [column-fill:_balance]">
+                {/* Gunakan mb-4 + break-inside avoid agar layout rapi */}
+                {[
+                  "/foto_1.jpeg","/foto_2.jpeg","/foto_3.jpeg","/foto_4.jpeg",
+                  "/foto_5.jpeg","/foto_6.jpeg","/foto_7.jpeg","/foto_8.jpeg",
+                  "/foto_9.jpeg","/foto_10.jpeg","/foto_11.jpeg","/foto_12.jpeg",
+                  "/foto_13.jpeg","/foto_14.jpeg","/foto_15.jpeg","/foto_16.jpeg",
+                ].map((src, i) => (
+                  <img
+                    key={src}
+                    src={typeof src === 'string' ? src : ''}
+                    alt={`Love story photo ${i + 1}`}
+                    loading="lazy"
+                    className="mb-4 w-full rounded-lg shadow-lg object-cover
+                               [break-inside:avoid] hover:opacity-95 transition"
+                  />
+                ))}
+              </div>
+
+              {/* Signature at the bottom */}
+              <div className="mt-4 flex items-center justify-center w-full">
+                <div className="flex items-center">
+                  <div className="h-[1px] w-12 sm:w-16 bg-black/40"></div>
+                  <span className="px-3 font-thesignature text-2xl sm:text-3xl text-black">
+                    Mela & Oji
+                  </span>
+                  <div className="h-[1px] w-12 sm:w-16 bg-black/40"></div>
                 </div>
               </div>
             </div>

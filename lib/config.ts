@@ -1,11 +1,11 @@
 export const config = {
     coupleNames: process.env.NEXT_PUBLIC_COUPLE_NAMES || "Mela & Oji",
     eventDate: process.env.NEXT_PUBLIC_EVENT_DATE || "2025-09-28T00:00:00",
-    bride: process.env.NEXT_PUBLIC_BRIDE_NAME || "Melani Alvina ( Mela )",
+    bride: process.env.NEXT_PUBLIC_BRIDE_NAME || "Melani Alvina // Mela ",
     brideNickName: process.env.NEXT_PUBLIC_BRIDE_NICKNAME || "Putri Pertama dari Bapak Sujiono dan Ibu Titin Sumarni",
     brideInstagram: process.env.NEXT_PUBLIC_BRIDE_INSTAGRAM || "melanialvina",
     brideBio: process.env.NEXT_PUBLIC_BRIDE_BIO || "",   
-    groom: process.env.NEXT_PUBLIC_GROOM_NAME || "Muhammad Fahrul Fauzi ( Oji )",
+    groom: process.env.NEXT_PUBLIC_GROOM_NAME || "Muhammad Fahrul Fauzi // Oji ",
     groomNickName: process.env.NEXT_PUBLIC_GROOM_NICKNAME || "Putra Kedua dari Bapak Abdulloh dan Ibu Surni",
     groomInstagram: process.env.NEXT_PUBLIC_GROOM_INSTAGRAM || "fauzifahrul_",
     groomBio: process.env.NEXT_PUBLIC_GROOM_BIO || "",
@@ -21,6 +21,7 @@ export const config = {
         enabled: process.env.NEXT_PUBLIC_DIGITAL_WALLET === 'true' || true,
         messageTitle: process.env.NEXT_PUBLIC_DIGITAL_WALLET_MESSAGE_TITLE || "Amplop Digital",
         message: process.env.NEXT_PUBLIC_DIGITAL_WALLET_MESSAGE || "Doa restu Anda adalah hadiah yang sangat berarti bagi kami. Namun jika ingin memberikan hadiah, Anda dapat mengirimkannya melalui:",
+        address: process.env.NEXT_PUBLIC_DIGITAL_WALLET_ADDRESS || "Jl. Pangeran Asogiri Rt.03 Rw.04 Tanah Baru No.10 Kota Bogor 16154",
         bankAccounts: [
             {
                 bank: process.env.NEXT_PUBLIC_BANK_1 || "BCA",

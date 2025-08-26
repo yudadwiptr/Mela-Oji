@@ -28,10 +28,9 @@ const ovo = Ovo({
   variable: "--font-ovo",
 });
 
-
 export const metadata: Metadata = {
   title: `The Wedding of ${config.coupleNames}`,
-  description: `Wedding Invitation of ${config.coupleNames}, made by Peter Shaan`,
+  description: `Wedding Invitation of ${config.coupleNames}, made by YUMA Studio`,
 };
 
 export default function RootLayout({
@@ -41,6 +40,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+        <meta property="og:title" content="The Wedding of Mela & Oji" />
+        <meta
+          property="og:description"
+          content="You’re invited to celebrate our wedding"
+        />
+        <meta property="og:image" content="/og.jpeg" />
+      </head>
       <body
         className={`bg-[#0a0a0a]  ${ovo.variable} ${thesignature.variable} ${wonder.variable} ${legan.variable}  antialiased`}
       >

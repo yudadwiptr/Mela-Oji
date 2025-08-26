@@ -10,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const contentTimer = setTimeout(() => {
       setShowContent(true);
-    }, 7000);
+    }, 5000);
 
     return () => clearTimeout(contentTimer);
   }, []);
