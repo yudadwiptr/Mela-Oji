@@ -196,7 +196,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             <div className="gap-y-2 md:gap-y-4 flex flex-col">
               <h5
                 className={`text-sm font-legan text-black uppercase fadeMain ${isMain2InView ? "active" : ""
-                  } mb-4`}
+                  } `}
                 ref={main2Ref}
               >
                 The Wedding Of
@@ -681,7 +681,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   ref={slide12Ref}
   className={`${isSlide12InView ? "active" : ""} fadeInMove sm:mt-4 mx-auto flex flex-col items-center`}
 >
-  <h1 className="text-4xl text-white font-ovo text-center uppercase mt-20 mb-6">
+  <h1 className="text-4xl text-white font-ovo text-center uppercase mt-20 mb-4">
     {config.thankyou}
   </h1>
 
@@ -695,7 +695,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     {config.coupleNames}
   </p>
  {/* Credit di bawah */}
-  <div className="mt-40 mb-20 flex justify-center w-full">
+  <div className="mt-60 mb-20 flex justify-center w-full">
     <div className="flex flex-col items-center px-3">
       <span className="font-ovo uppercase text-2xs sm:text-sm text-white mb-0">
         Created By
