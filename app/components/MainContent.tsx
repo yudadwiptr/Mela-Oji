@@ -126,16 +126,31 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
       if (!audio.paused) audio.pause();
     };
 
+    // Loop audio jika selesai
+    const handleAudioEnded = () => {
+      audio.currentTime = 0;
+      audio.play();
+    };
+    // Loop video jika selesai
+    const handleVideoEnded = () => {
+      video.currentTime = 0;
+      video.play();
+    };
+
     audio.addEventListener('play', handleAudioPlay);
     audio.addEventListener('pause', handleAudioPause);
     video.addEventListener('play', handleVideoPlay);
     video.addEventListener('pause', handleVideoPause);
+    audio.addEventListener('ended', handleAudioEnded);
+    video.addEventListener('ended', handleVideoEnded);
 
     return () => {
       audio.removeEventListener('play', handleAudioPlay);
       audio.removeEventListener('pause', handleAudioPause);
       video.removeEventListener('play', handleVideoPlay);
       video.removeEventListener('pause', handleVideoPause);
+      audio.removeEventListener('ended', handleAudioEnded);
+      video.removeEventListener('ended', handleVideoEnded);
     };
   }, [isOpen]);
 
@@ -257,7 +272,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               id="bottom-nav"
             >
               {/* Home */}
-              <button onClick={() => document.getElementById('backgroundWedding')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
+              <button onClick={() => document.getElementById('slide1')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
                 <Image src="home.svg" alt="Home" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Home</span>
               </button>
@@ -272,7 +287,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 <span className="mt-0.5">Event</span>
               </button>
               {/* Gallery */}
-              <button onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
+              <button onClick={() => document.getElementById('our-love-story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
                 <Image src="gallery.svg" alt="Gallery" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Gallery</span>
               </button>
@@ -695,7 +710,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     {config.coupleNames}
   </p>
  {/* Credit di bawah */}
-  <div className="mt-60 mb-20 flex justify-center w-full">
+  <div className="mt-40 mb-20 flex justify-center w-full">
     <div className="flex flex-col items-center px-3">
       <span className="font-ovo uppercase text-2xs sm:text-sm text-white mb-0">
         Created By
@@ -720,6 +735,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
            {/* New Section: Our Love Story (Masonry) */}
 <div
   ref={slide13Ref}
+  id="our-love-story"
   className={`${isSlide13InView ? "active" : ""} fadeInMove snap-start text-black h-screen flex flex-col pt-16 pb-16 px-8 overflow-y-auto`}
   style={{  
     backgroundImage: "url(/foto_utama.jpeg)",
