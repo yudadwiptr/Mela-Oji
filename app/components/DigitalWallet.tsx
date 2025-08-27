@@ -26,13 +26,12 @@ const DigitalWallet = () => {
     v.length <= visible ? v : "•".repeat(v.length - visible) + v.slice(-visible);
 
   return (
-    <section className="text-black">
+    <section className="text-black mb-10">
       {/* Header */}
-      <div className="text-center space-y-2 mb-5">
-        <h2 className="text-2xl sm:text-3xl font-ovo">Amplop Digital</h2>
-        <p className="text-s sm:text-sm font-legan text-black/70 max-w-md mx-auto">
-          Doa restu Anda adalah hadiah terbaik. Bila berkenan memberi hadiah,
-          berikut detail rekening & alamat.
+      <div className="text-center p">
+        <h2 className="text-2xl sm:text-3xl font-ovo mb-">Amplop Digital</h2>
+        <p className="text-xs sm:text-sm font-legan text-black/70 max-w-md mx-auto mb-4">
+          Apabila Bapak/Ibu/Saudara berkenan memberikan tanda kasih, dapat melalui rekening & alamat berikut.
         </p>
       </div>
 
@@ -101,8 +100,8 @@ const DigitalWallet = () => {
             <p className="text-center font-ovo text-s text-amber-200">ALAMAT LENGKAP</p>
 
             <p className="text-s font-legan text-center text-white mt-1 flex justify-center gap-2">
-              <span>{recipientInfo.name}</span>
-              <span>{recipientInfo.phone}</span>
+              <span>{}</span>
+              <span>{}</span>
             </p>
             <p className="text-s font-legan text-center text-white mt-1">
               {recipientInfo.address}

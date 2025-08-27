@@ -25,6 +25,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [viewportHeight, setViewportHeight] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Untuk fade-in pertama kali
   useEffect(() => {
@@ -46,9 +47,16 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
 
   const handleOpen = () => {
     setIsOpen(true);
-    if (!isOpen && audioRef.current) {
-      // Play music when "Open" is clicked
-      (audioRef.current as HTMLAudioElement).play();
+    // Play both audio and video when invitation is opened
+    if (!isOpen) {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+      }
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play();
+      }
     }
     setTimeout(() => {
       const slide1Element = document.getElementById("slide1");
@@ -93,19 +101,37 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     threshold: 0.5,
   });
 
+  // Sinkronkan play/pause antara audio dan video
   useEffect(() => {
-    const { current: audio } = audioRef;
-    const handleScroll = () => {
-      if (!audio) return;
-      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-      const isAtBottom = Math.abs(scrollHeight - (scrollTop + clientHeight)) < 1;
-      if (isAtBottom && audioRef.current) {
-        audioRef.current.currentTime = audioRef.current.duration; // Skip to end
-      }
+    const audio = audioRef.current;
+    const video = videoRef.current;
+    if (!audio || !video) return;
+
+    const handleAudioPlay = () => {
+      if (video.paused) video.play();
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const handleAudioPause = () => {
+      if (!video.paused) video.pause();
+    };
+    const handleVideoPlay = () => {
+      if (audio.paused) audio.play();
+    };
+    const handleVideoPause = () => {
+      if (!audio.paused) audio.pause();
+    };
+
+    audio.addEventListener('play', handleAudioPlay);
+    audio.addEventListener('pause', handleAudioPause);
+    video.addEventListener('play', handleVideoPlay);
+    video.addEventListener('pause', handleVideoPause);
+
+    return () => {
+      audio.removeEventListener('play', handleAudioPlay);
+      audio.removeEventListener('pause', handleAudioPause);
+      video.removeEventListener('play', handleVideoPlay);
+      video.removeEventListener('pause', handleVideoPause);
+    };
+  }, [isOpen]);
 
   return (
     <div
@@ -223,27 +249,27 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             >
               {/* Home */}
               <button onClick={() => document.getElementById('backgroundWedding')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
-                <Image src="/icons/gift.svg" alt="Home" width={28} height={28} className="mb-0.5" />
+                <Image src="home.svg" alt="Home" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Home</span>
               </button>
               {/* Couple */}
               <button onClick={() => document.getElementById('slide2')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
-                <Image src="/icons/couple.svg" alt="Couple" width={28} height={28} className="mb-0.5" />
+                <Image src="couple.svg" alt="Couple" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Couple</span>
               </button>
               {/* Event */}
               <button onClick={() => document.getElementById('slide5')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
-                <Image src="/icons/event.svg" alt="Event" width={28} height={28} className="mb-0.5" />
+                <Image src="event.svg" alt="Event" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Event</span>
               </button>
               {/* Gallery */}
               <button onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
-                <Image src="/icons/gallery.svg" alt="Gallery" width={28} height={28} className="mb-0.5" />
+                <Image src="gallery.svg" alt="Gallery" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Gallery</span>
               </button>
               {/* Wishes */}
               <button onClick={() => document.getElementById('slide10')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
-                <Image src="/icons/wishes.svg" alt="Wishes" width={28} height={28} className="mb-0.5" />
+                <Image src="wishes.svg" alt="Wishes" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Wishes</span>
               </button>
             </nav>
@@ -259,6 +285,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               }}
             >
               <video
+                ref={videoRef}
                 src="/mela-oji.mp4"
                 autoPlay
                 loop
@@ -372,7 +399,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               <div className="pb-8 sm:pb-0">
                 <h1
                   ref={slide4Ref}
-                  className={`text-xl sm:text-xl md:text-5xl text-white font-ovo fadeInMove ${isSlide4InView ? " active" : ""
+                  className={`text-xl sm:text-xl md:text-5xl text-white font-ovo fadeInMove mt-3 ${isSlide4InView ? " active" : ""
                     } text-center`}
                 >
                   A JOURNEY IN LOVE
@@ -433,8 +460,8 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   className={`relative flex items-center mt-3 sm:mt-5 fadeInLeft ${isSlide4InView ? " active" : ""
                     }`}
                 >
-                  <hr className="w-[80px] sm:w-[120px] mx-2 border-t border-gray-300" />
-                  <span className="px-2 font-thesignature text-2xl sm:text-3xl">
+                  <hr className="w-[80px] sm:w-[120px] mx-2 border-t border-gray-300 hidden" />
+                  <span className="px-2 font-thesignature text-2xl sm:text-3xl hidden">
                     {config.coupleNames}
                   </span>
                 </div>
@@ -593,11 +620,11 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 ref={slide10Ref}
                 className={`${isSlide10InView ? "active" : ""} fadeInMove w-full`}
               >
-                <h1 className="text-xl sm:text-3xl text-black font-ovo text-center uppercase mt-8">
+                <h1 className="text-xl sm:text-3xl text-black font-ovo text-center uppercase mt-6">
                   Ucapan & Doa
                 </h1>
-                <p className="text-s sm:text-sm text-center text-black/80 mb-8 font-legan max-w-md mx-auto">
-                  Sampaikan doa dan harapan terbaik Anda bagi kebahagiaan kedua mempelai.
+                <p className="text-xs sm:text-sm text-center text-black/80 mb-4 font-legan max-w-md mx-auto">
+                  Sampaikan doa terbaik Anda, semoga Allah menjadikan rumah tangga ini penuh berkah dan kebahagiaan.
                 </p>
                 <WishesList />
               </div>
@@ -641,7 +668,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               }}
             >
               {/* Ucapan terima kasih benar-benar di atas */}
-              <div className="sm:mt-4 mx-auto flex flex-col fade-in">
+              <div className="sm:mt-4 mx-auto flex flex-col fadeIn">
                 <h1 className="text-4xl text-white font-ovo text-center uppercase mt-20 mb-6 fadeIn">
                   {config.thankyou}
                 </h1>
@@ -652,10 +679,30 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                     <p className="px-3 font-thesignature text-2xl sm:text-3xl text-white mt-6">
                       {config.coupleNames}
                     </p>
+                    {/* Signature at the bottom */}
+              <div className="mt-80 mb-20 flex justify-center w-full">
+                <div className="flex flex-col items-center px-3">
+                  {/* Teks atas */}
+                  <span className="font-ovo uppercase text-2xs sm:text-sm text-white mb-0">
+                    Created By
+                  </span>
+
+                  {/* Teks dengan garis kiri-kanan */}
+                  <div className="flex items-center">
+                    <div className=""></div>
+                    <a href="https://www.instagram.com/yudadwiptr/" target="_blank" rel="noopener noreferrer" className="font-ovo uppercase text-xs sm:text-sm text-white mb-1">
+                      © YUMA STUDIO | 2025
+                    </a>
+                    <div className=""></div>
+                  </div>
+                  <p className="text-[0.5rem] sm:text-xs text-center"></p>
+                </div>
+              </div>
                   </p>
                 </div>
               </div>
             </div>
+
 
             {/* New Section: Our Love Story (Masonry) */}
             <div
@@ -701,31 +748,13 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 ))}
               </div>
 
-              {/* Signature at the bottom */}
-              <div className="mt-8 flex justify-center w-full">
-                <div className="flex flex-col items-center px-3">
-                  {/* Teks atas */}
-                  <span className="font-ovo uppercase text-2xs sm:text-sm text-black mb-1">
-                    Created By
-                  </span>
-
-                  {/* Teks dengan garis kiri-kanan */}
-                  <div className="flex items-center">
-                    <div className=""></div>
-                    <a href="https://www.instagram.com/yudadwiptr/" target="_blank" rel="noopener noreferrer" className="font-ovo uppercase text-xs sm:text-sm text-black mb-1">
-                      © YUMA STUDIO | 2025
-                    </a>
-                    <div className=""></div>
-                  </div>
-                  <p className="text-[0.5rem] sm:text-xs text-center"></p>
-                </div>
-              </div>
+              
             </div>
           </>
         )}
       </div>
-      {/* Audio Element */}
-      <audio ref={audioRef} src="/music/wedding_song.mp3" preload="auto" />
+  {/* Audio Element */}
+  <audio ref={audioRef} src="/music/wedding_song.mp3" preload="auto" />
     </div>
   );
 };
