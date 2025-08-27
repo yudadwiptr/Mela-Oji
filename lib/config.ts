@@ -1,11 +1,11 @@
 export const config = {
     coupleNames: process.env.NEXT_PUBLIC_COUPLE_NAMES || "Mela & Oji",
     eventDate: process.env.NEXT_PUBLIC_EVENT_DATE || "2025-09-28T00:00:00",
-    bride: process.env.NEXT_PUBLIC_BRIDE_NAME || "Melani Alvina // Mela ",
+    bride: process.env.NEXT_PUBLIC_BRIDE_NAME || "Melani Alvina",
     brideNickName: process.env.NEXT_PUBLIC_BRIDE_NICKNAME || "Putri Pertama dari Bapak Sujiono dan Ibu Titin Sumarni",
     brideInstagram: process.env.NEXT_PUBLIC_BRIDE_INSTAGRAM || "melanialvina",
     brideBio: process.env.NEXT_PUBLIC_BRIDE_BIO || "",   
-    groom: process.env.NEXT_PUBLIC_GROOM_NAME || "Muhammad Fahrul Fauzi // Oji ",
+    groom: process.env.NEXT_PUBLIC_GROOM_NAME || "Muhammad Fahrul Fauzi",
     groomNickName: process.env.NEXT_PUBLIC_GROOM_NICKNAME || "Putra Kedua dari Bapak Abdulloh dan Ibu Surni",
     groomInstagram: process.env.NEXT_PUBLIC_GROOM_INSTAGRAM || "fauzifahrul_",
     groomBio: process.env.NEXT_PUBLIC_GROOM_BIO || "",

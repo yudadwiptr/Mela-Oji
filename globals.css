@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'FormaleScript';
+  src: url('/fonts/FormaleScript_PERSONAL_USE_ONLY.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tempting';
+  src: url('/fonts/Tempting.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mutiara';
+  src: url('/fonts/Mutiara Calligraphy.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply global styles */
+body {
+  font-family: 'FormaleScript', sans-serif;
+}

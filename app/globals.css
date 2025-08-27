@@ -1,3 +1,7 @@
+/*
+  The following @tailwind directives require Tailwind CSS to process this file.
+  Make sure your build tool (like PostCSS) is set up to use Tailwind.
+*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +13,9 @@
   --font-legan: 'Legan', serif;
   --font-wonder: 'Wonder', sans-serif;
   --font-thesignature: 'Thesignature', sans-serif;
+  --font-formaleScript: 'FormaleScript';
+  --font-mutiara: 'Mutiara', sans-serif;
+  --font-tempting: 'Tempting', sans-serif;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -142,3 +149,11 @@ select option {
   color: white;
   padding: 8px;
 }
+
+/* Added FormaleScript font to global styles */
+@font-face {
+  font-family: 'FormaleScript';
+  src: url('/fonts/FormaleScript.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+} 
