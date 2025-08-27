@@ -100,6 +100,12 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const { ref: slide11Ref, inView: isSlide11InView } = useInView({
     threshold: 0.5,
   });
+  const { ref: slide12Ref, inView: isSlide12InView } = useInView({
+    threshold: 0.5,
+  });
+  const { ref: slide13Ref, inView: isSlide13InView } = useInView({
+    threshold: 0.5,
+  });
 
   // Sinkronkan play/pause antara audio dan video
   useEffect(() => {
@@ -181,6 +187,9 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             height: viewportHeight ? viewportHeight : '100dvh',
             paddingBottom: 'env(safe-area-inset-bottom)',
             paddingTop: 'env(safe-area-inset-top)',
+            backgroundImage: "url('/foto_utama.jpeg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         >
           <div className="text-center p-5 flex flex-col h-full justify-between py-20">
@@ -193,7 +202,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 The Wedding Of
               </h5>
               <h1
-                className={`text-4xl md:text-4xl font-tempting text-black fadeMain ${isMainInView ? "active" : ""}`}
+                className={`text-4xl md:text-4xl font-ovo text-black uppercase fadeMain ${isMainInView ? "active" : ""}`}
                 ref={mainRef}
               >
                 {config.coupleNames}
@@ -331,7 +340,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 ref={slide2Ref}
                 className={`fadeInMove ${isSlide2InView ? "active" : ""}  `}
               >
-                <p className="font-legan text-s sm:text-sm my-1 sm:my-2">The Bride</p>
+                <p className="font-legan text-s sm:text-sm my-1 sm:my-2 mt-8">The Bride</p>
                 <h1 className="text-2xl sm:text-xl md:text-4xl text-black font-ovo">
                   {config.bride}
                 </h1>
@@ -366,7 +375,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 ref={slide3Ref}
                 className={`fadeInMove ${isSlide3InView ? "active" : ""}  `}
               >
-                <p className="font-legan text-s sm:text-sm my-1 sm:my-2 text-black">The Groom</p>
+                <p className="font-legan text-s sm:text-sm my-1 sm:my-2 text-black mt-8">The Groom</p>
                 <h1 className="text-2xl sm:text-xl md:text-4xl text-black font-ovo">
                   {config.groom}
                 </h1>
@@ -668,87 +677,92 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               }}
             >
               {/* Ucapan terima kasih benar-benar di atas */}
-              <div className="sm:mt-4 mx-auto flex flex-col fadeIn">
-                <h1 className="text-4xl text-white font-ovo text-center uppercase mt-20 mb-6 fadeIn">
-                  {config.thankyou}
-                </h1>
-                <div className="sm:mt-4 mx-auto flex flex-col fade-in">
-                  <p className="text-base sm:text-sm font-legan text-white text-center fadeIn">
-                    {config.thankyouDetail}
+<div
+  ref={slide12Ref}
+  className={`${isSlide12InView ? "active" : ""} fadeInMove sm:mt-4 mx-auto flex flex-col items-center`}
+>
+  <h1 className="text-4xl text-white font-ovo text-center uppercase mt-20 mb-6">
+    {config.thankyou}
+  </h1>
 
-                    <p className="px-3 font-thesignature text-2xl sm:text-3xl text-white mt-6">
-                      {config.coupleNames}
-                    </p>
-                    {/* Signature at the bottom */}
-              <div className="mt-80 mb-20 flex justify-center w-full">
-                <div className="flex flex-col items-center px-3">
-                  {/* Teks atas */}
-                  <span className="font-ovo uppercase text-2xs sm:text-sm text-white mb-0">
-                    Created By
-                  </span>
+  {/* Deskripsi */}
+  <p className="text-base sm:text-sm font-legan text-white text-center max-w-md">
+    {config.thankyouDetail}
+  </p>
 
-                  {/* Teks dengan garis kiri-kanan */}
-                  <div className="flex items-center">
-                    <div className=""></div>
-                    <a href="https://www.instagram.com/yudadwiptr/" target="_blank" rel="noopener noreferrer" className="font-ovo uppercase text-xs sm:text-sm text-white mb-1">
-                      © YUMA STUDIO | 2025
-                    </a>
-                    <div className=""></div>
-                  </div>
-                  <p className="text-[0.5rem] sm:text-xs text-center"></p>
-                </div>
-              </div>
-                  </p>
-                </div>
-              </div>
-            </div>
+  {/* Signature nama pasangan */}
+  <p className="px-3 font-thesignature text-2xl sm:text-3xl text-white mt-6">
+    {config.coupleNames}
+  </p>
+ {/* Credit di bawah */}
+  <div className="mt-40 mb-20 flex justify-center w-full">
+    <div className="flex flex-col items-center px-3">
+      <span className="font-ovo uppercase text-2xs sm:text-sm text-white mb-0">
+        Created By
+      </span>
 
+      <div className="flex items-center gap-2">
+        <a
+          href="https://www.instagram.com/yudadwiptr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-ovo uppercase text-xs sm:text-sm text-white mb-1"
+        >
+          © YUMA STUDIO | 2025
+        </a>
+      </div>
+      <p className="text-[0.5rem] sm:text-xs text-center" />
+    </div>
+  </div>
+</div>
+</div>
+                        
+           {/* New Section: Our Love Story (Masonry) */}
+<div
+  ref={slide13Ref}
+  className={`${isSlide13InView ? "active" : ""} fadeInMove snap-start text-black h-screen flex flex-col pt-16 pb-16 px-8 overflow-y-auto`}
+  style={{  
+    backgroundImage: "url(/foto_utama.jpeg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100dvh",
+    height: viewportHeight ? viewportHeight : "100dvh",
+    paddingBottom: "env(safe-area-inset-bottom)",
+    paddingTop: "env(safe-area-inset-top)",
+  }}
+  >
+  <div className="text-center mb-6">
+    <h1 className="text-xs text-black font-ovo uppercase mt-6">Our Love Story</h1>
+    <p className="text-3xl font-legan text-black/80">The journey that brought us together</p>
+    <p className="text-xs font-ovo text-black/70 mt-0">
+    </p>
+  </div>
 
-            {/* New Section: Our Love Story (Masonry) */}
-            <div
-              id="gallery"
-              className="snap-start text-black h-screen flex flex-col pt-16 pb-16 px-8 overflow-y-auto"
-              style={{
-                backgroundImage: "url(/foto_utama.jpeg)",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                minHeight: '100dvh',
-                height: viewportHeight ? viewportHeight : '100dvh',
-                paddingBottom: 'env(safe-area-inset-bottom)',
-                paddingTop: 'env(safe-area-inset-top)',
-              }}
-            >
-              <div className="text-center mb-6">
-                <h1 className="text-xs text-black font-ovo uppercase mt-6">Our Love Story</h1>
-                <p className="text-3xl font-legan text-black/80">The journey that brought us together</p>
-                <p className="text-xs font-ovo text-black/70 mt-2">Every moment tells our story, every smile captures our love</p>
-              </div>
-
-              {/* Masonry container */}
-              <div className="mx-auto w-full max-w-3xl md:max-w-4xl
-                              columns-2 md:columns-3 gap-4
-                              [column-fill:_balance]">
-                {/* Gunakan mb-4 + break-inside avoid agar layout rapi */}
-                {[
-                  "/foto_1.jpeg", "/foto_2.jpeg", "/foto_3.jpeg", "/foto_4.jpeg",
-                  "/foto_5.jpeg", "/foto_6.jpeg", "/foto_7.jpeg", "/foto_8.jpeg",
-                  "/foto_9.jpeg", "/foto_10.jpeg", "/foto_11.jpeg", "/foto_12.jpeg",
-                  "/foto_13.jpeg", "/foto_14.jpeg", "/foto_15.jpeg", "/foto_16.jpeg",
-                ].map((src, i) => (
-                  <Image
-                    key={src}
-                    src={src}
-                    alt={`Love story photo ${i + 1}`}
-                    width={600} // Adjusted for mobile-friendly size
-                    height={400} // Adjusted for mobile-friendly size
-                    loading="lazy"
-                    className="mb-4 w-full rounded-lg shadow-lg object-cover
-                               [break-inside:avoid] hover:opacity-95 transition"
-                  />
-                ))}
-              </div>
-
-              
+  {/* Masonry container */}
+  <div
+    className="mx-auto w-full max-w-3xl md:max-w-4xl
+                columns-2 md:columns-3 gap-4
+                [column-fill:_balance]"
+  >
+    {[
+      "/foto_1.jpeg", "/foto_2.jpeg", "/foto_3.jpeg", "/foto_4.jpeg",
+      "/foto_5.jpeg", "/foto_6.jpeg", "/foto_7.jpeg", "/foto_8.jpeg",
+      "/foto_9.jpeg", "/foto_10.jpeg", "/foto_11.jpeg", "/foto_12.jpeg",
+      "/foto_13.jpeg", "/foto_14.jpeg", "/foto_15.jpeg", "/foto_16.jpeg",
+    ].map((src, i) => (
+                   <Image
+        key={src}
+        src={src}
+        alt={`Love story photo ${i + 1}`}
+        width={600} // Adjusted for mobile-friendly size
+        height={400} // Adjusted for mobile-friendly size
+        loading="lazy"
+        className="mb-4 w-full rounded-lg shadow-lg object-cover
+                   [break-inside:avoid] hover:opacity-95 transition"
+      />
+    ))}
+  </div>
+     
             </div>
           </>
         )}
