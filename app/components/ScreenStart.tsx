@@ -2,13 +2,11 @@
 
 import { config } from "@/lib/config";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { TypeAnimation } from "react-type-animation";
 
 const ScreenStart = () => {
   const [showScreenStart, setShowScreenStart] = useState(true);
   const [fadeClass, setFadeClass] = useState("opacity-100");
-  const toParam = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('to') : undefined;
 
 
   useEffect(() => {
