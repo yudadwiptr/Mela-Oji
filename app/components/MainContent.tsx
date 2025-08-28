@@ -241,7 +241,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
           <>
             {/* Navigation Menu - tampil hanya di slide 2 ke atas, estetik, icon SVG custom */}
             <nav
-              className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 flex justify-around items-center bg-white/30 backdrop-blur-xl border border-white/30 py-2 px-2 md:hidden shadow-xl transition-all"
+              className="fixed left-1/2 -translate-x-1/2 bottom-2 z-50 flex justify-around items-center bg-white/30 backdrop-blur-xl border border-white/30 py-2 px-2 md:hidden shadow-xl transition-all"
               style={{
                 borderRadius: '2.5rem',
                 boxShadow: '0 4px 32px 0 rgba(0,0,0,0.10)',
