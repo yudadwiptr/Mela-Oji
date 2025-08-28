@@ -129,11 +129,13 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     // Loop audio jika selesai
     const handleAudioEnded = () => {
       audio.currentTime = 0;
+      audio.playbackRate = 1;
       audio.play();
     };
     // Loop video jika selesai
     const handleVideoEnded = () => {
       video.currentTime = 0;
+      video.playbackRate = 1;
       video.play();
     };
 
@@ -259,40 +261,44 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
           <>
             {/* Navigation Menu - tampil hanya di slide 2 ke atas, estetik, icon SVG custom */}
             <nav
-              className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white/30 backdrop-blur-md border-t border-gray-200 py-2 px-1 md:hidden shadow-lg transition-all"
+              className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 flex justify-around items-center bg-white/30 backdrop-blur-xl border border-white/30 py-2 px-2 md:hidden shadow-xl transition-all"
               style={{
-                boxShadow: '0 -2px 16px 0 rgba(0,0,0,0.04)',
-                borderTopLeftRadius: '1.2rem',
-                borderTopRightRadius: '1.2rem',
-                maxWidth: '480px',
+                borderRadius: '2.5rem',
+                boxShadow: '0 4px 32px 0 rgba(0,0,0,0.10)',
+                maxWidth: '410px',
+                width: '95vw',
                 margin: '0 auto',
-                right: 0,
-                left: 0,
               }}
               id="bottom-nav"
             >
               {/* Home */}
-              <button onClick={() => document.getElementById('slide1')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
+              <button onClick={() => document.getElementById('slide1')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide1InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
+                {/* Dot indicator */}
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide1InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="home.svg" alt="Home" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Home</span>
               </button>
               {/* Couple */}
-              <button onClick={() => document.getElementById('slide2')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
+              <button onClick={() => document.getElementById('slide2')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide2InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide2InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="couple.svg" alt="Couple" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Couple</span>
               </button>
               {/* Event */}
-              <button onClick={() => document.getElementById('slide5')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
+              <button onClick={() => document.getElementById('slide5')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide5InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide5InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="event.svg" alt="Event" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Event</span>
               </button>
               {/* Gallery */}
-              <button onClick={() => document.getElementById('our-love-story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
+              <button onClick={() => document.getElementById('our-love-story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide13InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide13InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="gallery.svg" alt="Gallery" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Gallery</span>
               </button>
               {/* Wishes */}
-              <button onClick={() => document.getElementById('slide10')?.scrollIntoView({ behavior: 'smooth' })} className="flex flex-col items-center text-xs text-gray-700 hover:text-black focus:outline-none">
+              <button onClick={() => document.getElementById('slide10')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide10InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide10InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="wishes.svg" alt="Wishes" width={28} height={28} className="mb-0.5" />
                 <span className="mt-0.5">Wishes</span>
               </button>
