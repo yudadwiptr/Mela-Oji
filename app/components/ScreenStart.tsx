@@ -2,11 +2,15 @@
 
 import { config } from "@/lib/config";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { TypeAnimation } from "react-type-animation";
 
 const ScreenStart = () => {
   const [showScreenStart, setShowScreenStart] = useState(true);
   const [fadeClass, setFadeClass] = useState("opacity-100");
+  const searchParams = useSearchParams();
+  const toParam = searchParams.get("to");
+  const displayName = toParam || "GUEST";
 
   useEffect(() => {
     const fadeInTimer = setTimeout(() => {
@@ -53,6 +57,9 @@ const ScreenStart = () => {
         className="font-legan text-sm"
         repeat={0} // Animasi terus diulang
       />
+      <div className="mt-6 text-lg font-ovo tracking-wide uppercase text-white drop-shadow-lg">
+        {`Dear ${displayName},`}
+      </div>
     </div>
   );
 };

@@ -19,7 +19,10 @@ type WeddingScreenProps = {
 const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const searchParams = useSearchParams();
   const toParam = searchParams.get("to");
-  const displayName = toParam || name || "Guest";
+    // decode agar spasi dll tampil normal
+  const displayName = toParam 
+    ? decodeURIComponent(toParam) 
+    : (name || "Guest");
 
   const [fadeClass, setFadeClass] = useState("opacity-0");
   const [isOpen, setIsOpen] = useState(false);
