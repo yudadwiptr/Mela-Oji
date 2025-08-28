@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import ScreenStart from "./components/ScreenStart";
 import MainContent from "./components/MainContent";
 
@@ -17,8 +17,14 @@ export default function Home() {
 
   return (
     <div className="h-screen">
-      <ScreenStart />
-      {showContent && <MainContent />} {/* Tampilkan MainContent */}
+      <Suspense fallback={null}>
+        <ScreenStart />
+      </Suspense>
+      {showContent && (
+        <Suspense fallback={null}>
+          <MainContent />
+        </Suspense>
+      )}
     </div>
   );
 }
