@@ -107,50 +107,27 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     threshold: 0.5,
   });
 
-  // Sinkronkan play/pause antara audio dan video
+  // Loop audio dan video tanpa sinkronisasi, tanpa jeda, dan playbackRate selalu 1
   useEffect(() => {
     const audio = audioRef.current;
     const video = videoRef.current;
     if (!audio || !video) return;
 
-    const handleAudioPlay = () => {
-      if (video.paused) video.play();
-    };
-    const handleAudioPause = () => {
-      if (!video.paused) video.pause();
-    };
-    const handleVideoPlay = () => {
-      if (audio.paused) audio.play();
-    };
-    const handleVideoPause = () => {
-      if (!audio.paused) audio.pause();
-    };
-
-    // Loop audio jika selesai
     const handleAudioEnded = () => {
       audio.currentTime = 0;
       audio.playbackRate = 1;
       audio.play();
     };
-    // Loop video jika selesai
     const handleVideoEnded = () => {
       video.currentTime = 0;
       video.playbackRate = 1;
       video.play();
     };
 
-    audio.addEventListener('play', handleAudioPlay);
-    audio.addEventListener('pause', handleAudioPause);
-    video.addEventListener('play', handleVideoPlay);
-    video.addEventListener('pause', handleVideoPause);
     audio.addEventListener('ended', handleAudioEnded);
     video.addEventListener('ended', handleVideoEnded);
 
     return () => {
-      audio.removeEventListener('play', handleAudioPlay);
-      audio.removeEventListener('pause', handleAudioPause);
-      video.removeEventListener('play', handleVideoPlay);
-      video.removeEventListener('pause', handleVideoPause);
       audio.removeEventListener('ended', handleAudioEnded);
       video.removeEventListener('ended', handleVideoEnded);
     };
