@@ -249,35 +249,35 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               id="bottom-nav"
             >
               {/* Home */}
-              <button onClick={() => document.getElementById('slide1')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide1InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
+              <button onClick={() => document.getElementById('slide1')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide1InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}>
                 {/* Dot indicator */}
-                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide1InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide1InView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="home.svg" alt="Home" width={28} height={28} className="mb-0.5" />
-                <span className="mt-0.5">Home</span>
+                <span className="font-ovo mt-0.5">Home</span>
               </button>
               {/* Couple */}
-              <button onClick={() => document.getElementById('slide2')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide2InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
-                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide2InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
+              <button onClick={() => document.getElementById('slide2')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide2InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide2InView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="couple.svg" alt="Couple" width={28} height={28} className="mb-0.5" />
-                <span className="mt-0.5">Couple</span>
+                <span className="font-ovo mt-0.5">Couple</span>
               </button>
               {/* Event */}
-              <button onClick={() => document.getElementById('slide5')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide5InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
-                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide5InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
+              <button onClick={() => document.getElementById('slide5')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide5InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide5InView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="event.svg" alt="Event" width={28} height={28} className="mb-0.5" />
-                <span className="mt-0.5">Event</span>
+                <span className="font-ovo mt-0.5">Event</span>
               </button>
               {/* Gallery */}
-              <button onClick={() => document.getElementById('our-love-story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide13InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
-                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide13InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
+              <button onClick={() => document.getElementById('our-love-story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide13InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide13InView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="gallery.svg" alt="Gallery" width={28} height={28} className="mb-0.5" />
-                <span className="mt-0.5">Gallery</span>
+                <span className="font-ovo mt-0.5">Gallery</span>
               </button>
               {/* Wishes */}
-              <button onClick={() => document.getElementById('slide10')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide10InView ? 'text-blue-700 font-semibold' : 'text-gray-700'}`}>
-                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide10InView ? 'bg-blue-700 scale-100 shadow-md' : 'bg-transparent scale-0'}`}/>
+              <button onClick={() => document.getElementById('slide10')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide10InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide10InView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="wishes.svg" alt="Wishes" width={28} height={28} className="mb-0.5" />
-                <span className="mt-0.5">Wishes</span>
+                <span className="font-ovo mt-0.5">Wishes</span>
               </button>
             </nav>
             {/* Slide 1 */}
