@@ -49,13 +49,15 @@ export default function RootLayout({
         <meta property="og:title" content="Mela & Oji Wedding Invitation" />
         <meta property="og:description" content="Undangan pernikahan Mela & Oji. Save the date & sampaikan doa terbaikmu di sini!" />
   <meta property="og:image" content="https://mela-oji.vercel.app/foto_1_samping.jpeg" />
+  <meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://mela-oji.vercel.app" />
         <meta property="og:type" content="website" />
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Mela & Oji Wedding Invitation" />
         <meta name="twitter:description" content="Undangan pernikahan Mela & Oji. Save the date & sampaikan doa terbaikmu di sini!" />
-  <meta name="twitter:image" content="https://mela-oji.vercel.app/og.jpeg" />
+  <meta name="twitter:image" content="https://mela-oji.vercel.app/foto_1_samping.jpeg" />
       </head>
       <body
         className={`bg-[#0a0a0a]  ${ovo.variable} ${thesignature.variable} ${wonder.variable} ${legan.variable}  antialiased`}
