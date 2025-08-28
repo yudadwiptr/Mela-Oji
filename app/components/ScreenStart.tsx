@@ -8,7 +8,7 @@ import { TypeAnimation } from "react-type-animation";
 const ScreenStart = () => {
   const [showScreenStart, setShowScreenStart] = useState(true);
   const [fadeClass, setFadeClass] = useState("opacity-100");
-  const searchParams = useSearchParams();
+  const toParam = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('to') : undefined;
 
 
   useEffect(() => {
