@@ -24,7 +24,7 @@ export default function Home({ params: { slug } }: ParamsProps) {
 
     const contentTimer = setTimeout(() => {
       setShowContent(true);
-    }, 7000);
+    }, 5000);
 
     return () => clearTimeout(contentTimer);
   }, [slug]);

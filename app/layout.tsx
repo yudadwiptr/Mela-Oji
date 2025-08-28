@@ -47,10 +47,14 @@ export default function RootLayout({
         />
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content="Mela & Oji Wedding Invitation" />
-        <meta property="og:description" content="Undangan pernikahan Mela & Oji. Save the date & sampaikan doa terbaikmu di sini!" />
-  <meta property="og:image" content="https://mela-oji.vercel.app/foto_1_samping.jpeg" />
-  <meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
+        <meta property="og:description" content="A Journey of Love Begins
+      You're warmly invited to celebrate the beginning of our forever.
+      Save the Date and join us as we start this beautiful chapter together.
+      With love,
+      Mela & Oji 💍✨" />
+        <meta property="og:image" content="https://mela-oji.vercel.app/wa.jpeg" />
+        <meta property="og:image:width"  content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://mela-oji.vercel.app" />
         <meta property="og:type" content="website" />
         {/* Twitter Card Meta Tags */}
