@@ -48,8 +48,8 @@ export default function RootLayout({
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content="Mela & Oji Wedding Invitation" />
         <meta property="og:description" content="A Journey of Love Begins.
-\nYou're warmly invited to celebrate the beginning of our forever.
-\nSave the Date and join us as we start this beautiful chapter together✨" />
+✨You're warmly invited to celebrate the beginning of our forever.
+✨Save the Date and join us as we start this beautiful chapter together✨" />
         <meta property="og:image" content="https://mela-oji.vercel.app/wa.jpeg" />
         <meta property="og:image:width"  content="1200" />
         <meta property="og:image:height" content="630" />
