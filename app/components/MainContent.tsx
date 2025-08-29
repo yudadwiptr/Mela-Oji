@@ -586,13 +586,13 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 ref={slide6Ref}
                 className={` ${isSlide6InView ? "active" : ""} fadeInMove flex items-center flex-col w-full`}
               >
-                <div className="pt-20 w-full flex justify-center">
+                <div className="pt-10 w-full flex justify-center">
                   <h1 className="text-3xl text-center text-black text-bold font-ovo">
                     ALMOST TIME FOR OUR CELEBRATION
                   </h1>
                 </div>
                 {/* Countdown Timer */}
-                <div className="w-full flex flex-col items-center" style={{ color: 'black' }}>
+                <div className="w-full flex flex-col items-center mt-10" style={{ color: 'black' }}>
                   <CountdownTimer />
                   {/* Add to Calendar Button - More Compact */}
                   <div className="mt-6 flex justify-center w-full">

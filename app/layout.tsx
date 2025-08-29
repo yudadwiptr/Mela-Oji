@@ -51,7 +51,7 @@ export default function RootLayout({
 ✨You're warmly invited to celebrate the beginning of our forever.
 ✨Save the Date and join us as we start this beautiful chapter together✨" />
         <meta property="og:image" content="https://mela-oji.vercel.app/wa.jpeg" />
-        <meta property="og:image:width"  content="1200" />
+        <meta property="og:image:width"  content="2400" />
         <meta property="og:image:height" content="1200" />
         <meta property="og:url" content="https://mela-oji.vercel.app" />
         <meta property="og:type" content="website" />
