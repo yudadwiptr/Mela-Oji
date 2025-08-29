@@ -497,7 +497,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   }  fadeInMove flex items-center flex-col`}
               >
                 <div className="text-center mb-4">
-                  <h3 className="uppercase font-legan text-xs sm:text-sm tracking-wide mb-1.5 text-black">
+                  <h3 className="uppercase font-legan text-s sm:text-sm tracking-wide mb-1.5 text-black">
                     SAVE OUR DATE
                   </h3>
                   <h1 className="text-2xl sm:text-3xl md:text-4xl text-black font-ovo uppercase leading-tight">
@@ -514,10 +514,10 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 <div className="grid gap-2.5 w-full px-0 sm:max-w-md">
                   {/* Akad Section - More compact with better styling */}
                   <div className="w-full bg-black/50 backdrop-blur-sm rounded-md p-3 border border-white/10 transform transition-all">
-                    <h3 className="uppercase font-ovo text-sm text-center text-amber-200">
+                    <h3 className="uppercase font-ovo text-base text-center text-amber-200">
                       AKAD
                     </h3>
-                    <p className="text-sm text-center font-legan text-white font-semibold">
+                    <p className="text-base text-center font-legan text-white font-semibold">
                       09:00 WIB
                     </p>
                     <div className="border-t border-gray-700/50 my-1.5"></div>
@@ -529,10 +529,10 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
 
                   {/* Resepsi Section - More compact with better styling */}
                   <div className="w-full bg-black/50 backdrop-blur-sm rounded-md p-3 border border-white/10 transform transition-all">
-                    <h3 className="uppercase font-ovo text-sm text-center text-amber-200">
+                    <h3 className="uppercase font-ovo text-base text-center text-amber-200">
                       RESEPSI
                     </h3>
-                    <p className="text-sm text-center font-legan text-white font-semibold">
+                    <p className="text-base text-center font-legan text-white font-semibold">
                       10:00 WIB
                     </p>
                     <div className="border-t border-gray-700/50 my-1.5"></div>
@@ -682,17 +682,17 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   ref={slide12Ref}
   className={`${isSlide12InView ? "active" : ""} fadeInMove sm:mt-4 mx-auto flex flex-col items-center`}
 >
-  <h1 className="text-4xl text-white font-ovo text-center uppercase mt-20 mb-4">
+  <h1 className="text-4xl text-white font-ovo text-center uppercase mt-10 mb-4">
     {config.thankyou}
   </h1>
 
   {/* Deskripsi */}
-  <p className="text-base sm:text-sm font-legan text-white text-center max-w-md">
+  <p className="text-base sm:text-sm font-legan text-white text-center max-w-md text-justify">
     {config.thankyouDetail}
   </p>
 
   {/* Signature nama pasangan */}
-  <p className="px-3 font-thesignature text-2xl sm:text-3xl text-white mt-6">
+  <p className="px-3 font-thesignature text-4xl sm:text-3xl text-white mt-6">
     {config.coupleNames}
   </p>
  {/* Credit di bawah */}
