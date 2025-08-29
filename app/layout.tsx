@@ -52,7 +52,7 @@ export default function RootLayout({
 ✨Save the Date and join us as we start this beautiful chapter together✨" />
         <meta property="og:image" content="https://mela-oji.vercel.app/wa.jpeg" />
         <meta property="og:image:width"  content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image:height" content="1200" />
         <meta property="og:url" content="https://mela-oji.vercel.app" />
         <meta property="og:type" content="website" />
         {/* Twitter Card Meta Tags */}

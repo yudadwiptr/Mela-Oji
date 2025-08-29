@@ -241,7 +241,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
           <>
             {/* Navigation Menu - tampil hanya di slide 2 ke atas, estetik, icon SVG custom */}
             <nav
-              className="fixed left-1/2 -translate-x-1/2 bottom-2 z-50 flex justify-around items-center bg-white/30 backdrop-blur-xl border border-white/30 py-2 px-2 md:hidden shadow-xl transition-all"
+              className="fixed left-1/2 -translate-x-1/2 bottom-2 z-50 flex justify-around items-center bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-xl bg-white/10 backdrop-blur-lg border border-white/30 py-2 px-2 md:hidden shadow-lg transition-all"
               style={{
                 borderRadius: '2.5rem',
                 boxShadow: '0 4px 32px 0 rgba(0,0,0,0.10)',
@@ -698,7 +698,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
  {/* Credit di bawah */}
   <div className="mt-40 mb-20 flex justify-center w-full">
     <div className="flex flex-col items-center px-3">
-      <span className="font-ovo uppercase text-2xs sm:text-sm text-white mb-0">
+      <span className="font-ovo uppercase text-2xs sm:text-sm text-white mt-2 -mb-4 block">
         Created By
       </span>
 
@@ -707,12 +707,15 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
           href="https://www.instagram.com/yudadwiptr/"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-ovo uppercase text-xs sm:text-sm text-white mb-1"
+          className="mb-0.5"
         >
-          © YUMA STUDIO | 2025
+          <img src="/yumast.png" alt="YUMA Studio" className="w-24 sm:w-40 object-contain mx-auto animate-yuma-wiggle" />
         </a>
       </div>
-      <p className="text-[0.5rem] sm:text-xs text-center" />
+      <p className="text-[0.5rem] sm:text-xs text-center -pb-20" />
+      <span className="font-ovo uppercase text-2xs sm:text-sm text-white block relative bottom-4">
+        © 2025 | All rights reserved
+      </span>
     </div>
   </div>
 </div>
