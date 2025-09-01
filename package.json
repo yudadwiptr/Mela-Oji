@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "lt": "artillery run app/loadtest/test.yml",
+  "lt:report": "artillery run app/loadtest/test.yml -o app/loadtest/report.json && artillery report app/loadtest/report.json"
+
   },
   "dependencies": {
     "@next/font": "^14.2.10",

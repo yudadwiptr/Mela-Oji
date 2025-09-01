@@ -1,0 +1,31 @@
+config:
+  target: "https://mela-oji.vercel.app"
+  phases:
+    # Pemanasan 30 dgn 5 req/detik
+    - duration: 30
+      arrivalRate: 5
+      name: warmup
+    # Naik pelan ke 50 req/detik selama 2 menit
+    - duration: 120
+      arrivalRate: 10
+      rampTo: 50
+      name: ramp_to_50
+    # Tahan 50 req/detik selama 2 menit
+    - duration: 120
+      arrivalRate: 50
+      name: hold_50
+  defaults:
+    headers:
+      User-Agent: "artillery-loadtest"
+scenarios:
+  - name: Homepage & with to=
+    flow:
+      - get:
+          url: "/"
+      - think: 1        # jeda pengguna (detik)
+      - get:
+          url: "/?to={{ toName }}"
+    payload:
+      path: "./names.csv"
+      fields:
+        - toName

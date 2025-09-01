@@ -151,10 +151,10 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
       >
         {/* Updated Image Component */}
         <Image
-          src="/foto_1_samping.jpeg"
+          src="/meta.jpeg"
           alt="Hero Image"
           width={1920} // Removed 'fill' property and kept 'width' and 'height'
-          height={1080} // Added required height property
+          height={1080} // A  dded required height property
           objectFit="cover"
           priority
           placeholder="blur"
@@ -725,7 +725,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
 <div
   ref={slide13Ref}
   id="our-love-story"
-  className={`${isSlide13InView ? "active" : ""} fadeInMove snap-start text-black h-screen flex flex-col pt-16 pb-16 px-8 overflow-y-auto`}
+  className={`${isSlide13InView ? "active" : ""} fadeInMove snap-start text-black min-h-screen flex flex-col pt-16 pb-24 px-8 overflow-y-auto scrollable`}
   style={{  
     backgroundImage: "url(/foto_utama.jpeg)",
     backgroundSize: "cover",
@@ -736,7 +736,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     paddingTop: "env(safe-area-inset-top)",
   }}
   >
-  <div className="text-center mb-6">
+  <div className="text-center mb-6">  
     <h1 className="text-xs text-black font-ovo uppercase mt-6">Our Love Story</h1>
     <p className="text-3xl font-legan text-black/80">The journey that brought us together</p>
     <p className="text-xs font-ovo text-black/70 mt-0">
@@ -767,11 +767,17 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
       />
     ))}
   </div>
+
+
      
             </div>
           </>
         )}
-      </div>
+        
+       {/* spacer */}
+  <div className="h-[140px]" aria-hidden />
+</div>
+
   {/* Audio Element */}
   <audio ref={audioRef} src="/music/wedding_song.mp3" preload="auto" />
     </div>

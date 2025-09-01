@@ -173,3 +173,9 @@ select option {
   font-weight: normal;
   font-style: normal;
 } 
+
+.scrollable {
+  -webkit-overflow-scrolling: touch; /* momentum scroll iOS */
+  overscroll-behavior-y: auto;       /* izinkan chain ke parent */
+  touch-action: pan-y;
+}
