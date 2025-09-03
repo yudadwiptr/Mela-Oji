@@ -45,7 +45,26 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     }
     updateHeight();
     window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
+    
+    // Fix for mobile devices: ensure background is always visible
+    const fixBackgroundOnScroll = () => {
+      const backgroundElement = document.getElementById('backgroundWedding');
+      if (backgroundElement && window.scrollY === 0) {
+        // Force repaint when scrolled to top to fix black screen issues
+        backgroundElement.style.opacity = '0.99';
+        setTimeout(() => {
+          backgroundElement.style.opacity = '1';
+        }, 0);
+      }
+    };
+    
+    // Add scroll event listener for mobile
+    window.addEventListener('scroll', fixBackgroundOnScroll);
+    
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      window.removeEventListener('scroll', fixBackgroundOnScroll);
+    };
   }, []);
 
   const handleOpen = () => {
@@ -61,12 +80,13 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
         videoRef.current.play();
       }
     }
+    // Use a slightly longer delay to ensure everything is rendered properly
     setTimeout(() => {
       const slide1Element = document.getElementById("slide1");
       if (slide1Element) {
-        slide1Element.scrollIntoView({ behavior: "smooth" });
+        slide1Element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    }, 100); // Delay to ensure slide1 is rendered
+    }, 200); // Increased delay to ensure slide1 is rendered
   };
 
   const { ref: mainRef, inView: isMainInView } = useInView({
@@ -187,13 +207,14 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
             backgroundImage: "url('/foto_utama.jpeg')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            willChange: 'transform', /* Optimization for smoother scrolling */
+            backfaceVisibility: 'hidden', /* Helps with rendering on mobile */
           }}
         >
-          <div className="text-center p-5 flex flex-col h-full justify-between py-20">
+          <div className="text-center p-5 flex flex-col h-full justify-between py-20" style={{ zIndex: 2, position: 'relative' }}>
             <div className="gap-y-2 md:gap-y-4 flex flex-col">
               <h5
-                className={`text-sm font-legan text-black uppercase fadeMain ${isMain2InView ? "active" : ""
-                  } `}
+                className={`text-sm font-legan text-black uppercase fadeMain ${isMain2InView ? "active" : ""} `}
                 ref={main2Ref}
               >
                 The Wedding Of
@@ -205,8 +226,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                 {config.coupleNames}
               </h1>
               <h5
-                className={`text-sm font-legan text-black uppercase tracking-wide  fadeMain2 ${isMain2InView ? "active" : ""
-                  } `}
+                className={`text-sm font-legan text-black uppercase tracking-wide fadeMain2 ${isMain2InView ? "active" : ""} `}
                 ref={main2Ref}
               >
                 {new Date(config.eventDate).toLocaleDateString("en-US", {
@@ -252,7 +272,22 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               id="bottom-nav"
             >
               {/* Home */}
-              <button onClick={() => document.getElementById('slide1')?.scrollIntoView({ behavior: 'smooth' })} className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide1InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}>
+              <button 
+                onClick={() => {
+                  // Enhanced navigation to ensure proper rendering on mobile
+                  const slide1 = document.getElementById('slide1');
+                  if (slide1) {
+                    // Force a repaint before scrolling to fix potential rendering issues
+                    slide1.style.display = 'none';
+                    void slide1.offsetHeight; // Triggers reflow
+                    slide1.style.display = '';
+                    
+                    // Scroll with both smooth behavior and start alignment
+                    slide1.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }} 
+                className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide1InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}
+              >
                 {/* Dot indicator */}
                 <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide1InView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="home.svg" alt="Home" width={28} height={28} className="mb-0.5" />
@@ -727,7 +762,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   id="our-love-story"
   className={`${isSlide13InView ? "active" : ""} fadeInMove snap-start text-black min-h-screen flex flex-col pt-16 pb-24 px-8 overflow-y-auto scrollable`}
   style={{  
-    backgroundImage: "url(/foto_utama.jpeg)",
+    backgroundImage: "url(/meta.jpeg)",
     backgroundSize: "cover",
     backgroundPosition: "center",
     minHeight: "100dvh",
@@ -739,8 +774,15 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   <div className="text-center mb-6">  
     <h1 className="text-xs text-black font-ovo uppercase mt-6">Our Love Story</h1>
     <p className="text-3xl font-legan text-black/80">The journey that brought us together</p>
-    <p className="text-xs font-ovo text-black/70 mt-0">
-    </p>
+    <p className="text-xs font-ovo text-black/70 mt-0"></p>
+    {/* Tombol scroll ke slide terima kasih */}
+    <button
+      className="mt-4 mb-2 p-2 rounded-full bg-white/80 shadow hover:bg-amber-100 transition flex items-center mx-auto"
+      onClick={() => document.getElementById('slide10')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+      aria-label="Scroll to thank you section"
+    >
+      <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>
+    </button>
   </div>
 
   {/* Masonry container */}
