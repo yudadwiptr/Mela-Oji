@@ -27,6 +27,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const [fadeClass, setFadeClass] = useState("opacity-0");
   const [isOpen, setIsOpen] = useState(false);
   const [viewportHeight, setViewportHeight] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -48,20 +49,26 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
           const img = document.createElement('img');
           img.onload = () => resolve(url);
           img.onerror = () => resolve(url); // Continue even if error
+          img.decoding = 'async';
+          img.fetchPriority = 'high';
           img.src = url;
         }
       });
     });
     
-    // Wait for critical images to load before showing content
+    // Show content immediately without blur effect
+    setFadeClass("opacity-100");
+    
+    // Preload critical resources in background
     Promise.all(preloadImages).then(() => {
+      // Once loaded, ensure we're at full opacity
       setFadeClass("opacity-100");
     });
-    
-    // Fallback timer in case images don't load
+
+    // Short fallback timer to ensure good UX even if images are slow
     const timer = setTimeout(() => {
       setFadeClass("opacity-100");
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -72,7 +79,10 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     }
     updateHeight();
     window.addEventListener("resize", updateHeight);
-    
+
+    // Use a ref to store the scroll timer
+    const scrollTimerRef = { current: null as ReturnType<typeof setTimeout> | null };
+
     // Fix for mobile devices: ensure background is always visible
     const fixBackgroundOnScroll = () => {
       const backgroundElement = document.getElementById('backgroundWedding');
@@ -91,22 +101,38 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
         }
       }
     };
-    
+
+    // Track scroll transitions for conditional blur effect
+    const handleScroll = () => {
+      setIsTransitioning(true);
+      if (scrollTimerRef.current) {
+        clearTimeout(scrollTimerRef.current);
+      }
+      scrollTimerRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 500);
+    };
+
     // Add scroll event listener for mobile
     const scrollContainer = document.getElementById('backgroundWedding')?.parentElement;
     if (scrollContainer) {
       scrollContainer.addEventListener('scroll', fixBackgroundOnScroll, { passive: true });
+      scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
     }
-    
+
     // Fix for iOS devices that may hide the background on scroll
     document.addEventListener('visibilitychange', fixBackgroundOnScroll);
-    
+
     return () => {
       window.removeEventListener("resize", updateHeight);
       if (scrollContainer) {
         scrollContainer.removeEventListener('scroll', fixBackgroundOnScroll);
+        scrollContainer.removeEventListener('scroll', handleScroll);
       }
       document.removeEventListener('visibilitychange', fixBackgroundOnScroll);
+      if (scrollTimerRef.current) {
+        clearTimeout(scrollTimerRef.current);
+      }
     };
   }, []);
 
@@ -261,14 +287,25 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               objectFit="cover"
               priority={true}
               quality={100}
+              loading="eager"
+              fetchPriority="high"
             />
           </div>
+          {/* Conditional blur overlay that only appears during transitions */}
+          {isTransitioning && (
+            <div 
+              className="absolute inset-0 z-1 backdrop-blur-sm transition-opacity duration-300"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.03)',
+              }}
+            />
+          )}
           <div 
-            className="text-center p-5 flex flex-col h-full justify-between py-20 bg-white/10 backdrop-blur-sm w-full" 
+            className="text-center p-5 flex flex-col h-full justify-between py-20 w-full" 
             style={{ 
               zIndex: 10, 
               position: 'relative', 
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
             }}
           >
             <div className="gap-y-2 md:gap-y-4 flex flex-col">
@@ -333,24 +370,26 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               {/* Home */}
               <button 
                 onClick={() => {
-                  // Go to the very top - the backgroundWedding element
-                  const homeElement = document.getElementById('backgroundWedding');
-                  if (homeElement) {
-                    // On mobile, scrolling to the top can cause rendering issues
-                    // Using a more reliable approach with scrollTo
-                    const container = homeElement.parentElement;
-                    if (container) {
-                      container.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                      });
+                  // Navigate to slide1 (video section)
+                  const slide1Element = document.getElementById('slide1');
+                  if (slide1Element) {
+                    // Using a reliable scrollIntoView method with specific options for better mobile support
+                    slide1Element.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                    
+                    // Ensure video starts playing when navigating to it
+                    if (videoRef.current) {
+                      videoRef.current.currentTime = 0;
+                      videoRef.current.play().catch(e => console.log("Video play prevented:", e));
                     }
                   }
                 }} 
-                className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isMainInView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}
+                className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide1InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}
               >
                 {/* Dot indicator */}
-                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isMainInView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide1InView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="home.svg" alt="Home" width={28} height={28} className="mb-0.5" />
                 <span className="font-ovo mt-0.5">Home</span>
               </button>
