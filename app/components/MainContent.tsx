@@ -30,11 +30,38 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Untuk fade-in pertama kali
+  // Untuk fade-in pertama kali with image preloading
   useEffect(() => {
+    // Preload critical images
+    const imageUrls = ['/foto_utama.jpeg', '/meta.jpeg', '/mela-oji.mp4'];
+    const preloadImages = imageUrls.map(url => {
+      return new Promise((resolve) => {
+        if (url.endsWith('.mp4')) {
+          // For video files
+          const video = document.createElement('video');
+          video.onloadeddata = () => resolve(url);
+          video.onerror = () => resolve(url); // Continue even if error
+          video.src = url;
+          video.load();
+        } else {
+          // For image files
+          const img = document.createElement('img');
+          img.onload = () => resolve(url);
+          img.onerror = () => resolve(url); // Continue even if error
+          img.src = url;
+        }
+      });
+    });
+    
+    // Wait for critical images to load before showing content
+    Promise.all(preloadImages).then(() => {
+      setFadeClass("opacity-100");
+    });
+    
+    // Fallback timer in case images don't load
     const timer = setTimeout(() => {
       setFadeClass("opacity-100");
-    }, 500);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -49,21 +76,37 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
     // Fix for mobile devices: ensure background is always visible
     const fixBackgroundOnScroll = () => {
       const backgroundElement = document.getElementById('backgroundWedding');
-      if (backgroundElement && window.scrollY === 0) {
-        // Force repaint when scrolled to top to fix black screen issues
-        backgroundElement.style.opacity = '0.99';
-        setTimeout(() => {
-          backgroundElement.style.opacity = '1';
-        }, 0);
+      const scrollContainer = backgroundElement?.parentElement;
+      
+      if (backgroundElement && scrollContainer && scrollContainer.scrollTop === 0) {
+        // At the top - ensure the background image is visible
+        const bgImage = backgroundElement.querySelector('img');
+        if (bgImage) {
+          // Force reload of the image if we're at the top
+          const currentSrc = bgImage.src;
+          bgImage.src = '';
+          setTimeout(() => {
+            bgImage.src = currentSrc;
+          }, 10);
+        }
       }
     };
     
     // Add scroll event listener for mobile
-    window.addEventListener('scroll', fixBackgroundOnScroll);
+    const scrollContainer = document.getElementById('backgroundWedding')?.parentElement;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', fixBackgroundOnScroll, { passive: true });
+    }
+    
+    // Fix for iOS devices that may hide the background on scroll
+    document.addEventListener('visibilitychange', fixBackgroundOnScroll);
     
     return () => {
       window.removeEventListener("resize", updateHeight);
-      window.removeEventListener('scroll', fixBackgroundOnScroll);
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', fixBackgroundOnScroll);
+      }
+      document.removeEventListener('visibilitychange', fixBackgroundOnScroll);
     };
   }, []);
 
@@ -90,10 +133,12 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
   };
 
   const { ref: mainRef, inView: isMainInView } = useInView({
-    threshold: 0.5,
+    threshold: 0.2, // Lower threshold to detect the welcome screen more easily
+    initialInView: true, // Assume initially in view
   });
   const { ref: main2Ref, inView: isMain2InView } = useInView({
-    threshold: 0.5,
+    threshold: 0.2, // Lower threshold to detect the welcome screen more easily
+    initialInView: true, // Assume initially in view
   });
 
   const { ref: slide1Ref, inView: isSlide1InView } = useInView({
@@ -158,8 +203,8 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
 
   return (
     <div
-      className={`w-screen flex flex-col md:flex-row ${fadeClass} transition-opacity duration-1000`}
-      style={{ minHeight: '100dvh', height: '100dvh' }}
+      className={`w-screen flex flex-col md:flex-row ${fadeClass} transition-opacity duration-1000 bg-white`}
+      style={{ minHeight: '100dvh', height: '100dvh', backgroundColor: 'white' }}
     >
       {/* Gambar sisi kiri Wide Untuk Komputer */}
       <div
@@ -171,7 +216,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
       >
         {/* Updated Image Component */}
         <Image
-          src="/meta.jpeg"
+          src="/foto_1_samping.jpeg"
           alt="Hero Image"
           width={1920} // Removed 'fill' property and kept 'width' and 'height'
           height={1080} // A  dded required height property
@@ -188,30 +233,44 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
       </div>
       {/* Konten teks sisi kanan bisa scroll untuk pc dan mobile */}
       <div
-        className="w-full md:w-1/3 h-full overflow-y-scroll snap-y snap-mandatory scroll-smooth"
+        className="w-full md:w-1/3 h-full overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-white"
         style={{
           minHeight: '100dvh',
           height: viewportHeight ? viewportHeight : '100dvh',
           paddingBottom: 'env(safe-area-inset-bottom)',
           paddingTop: 'env(safe-area-inset-top)',
+          WebkitOverflowScrolling: 'touch', /* Improve scroll performance on iOS */
         }}
       >
         <div
           id="backgroundWedding"
-          className="snap-start w-full flex items-center justify-center scroll-mt-20"
+          className="snap-start w-full flex items-center justify-center scroll-mt-20 relative"
           style={{
             minHeight: '100dvh',
             height: viewportHeight ? viewportHeight : '100dvh',
             paddingBottom: 'env(safe-area-inset-bottom)',
             paddingTop: 'env(safe-area-inset-top)',
-            backgroundImage: "url('/foto_utama.jpeg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            willChange: 'transform', /* Optimization for smoother scrolling */
-            backfaceVisibility: 'hidden', /* Helps with rendering on mobile */
           }}
         >
-          <div className="text-center p-5 flex flex-col h-full justify-between py-20" style={{ zIndex: 2, position: 'relative' }}>
+          {/* Use a separate div for the background with Image component for better mobile compatibility */}
+          <div className="absolute inset-0 z-0">
+            <Image 
+              src="/foto_utama.jpeg" 
+              alt="Wedding Background"
+              layout="fill"
+              objectFit="cover"
+              priority={true}
+              quality={100}
+            />
+          </div>
+          <div 
+            className="text-center p-5 flex flex-col h-full justify-between py-20 bg-white/10 backdrop-blur-sm w-full" 
+            style={{ 
+              zIndex: 10, 
+              position: 'relative', 
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            }}
+          >
             <div className="gap-y-2 md:gap-y-4 flex flex-col">
               <h5
                 className={`text-sm font-legan text-black uppercase fadeMain ${isMain2InView ? "active" : ""} `}
@@ -274,22 +333,24 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
               {/* Home */}
               <button 
                 onClick={() => {
-                  // Enhanced navigation to ensure proper rendering on mobile
-                  const slide1 = document.getElementById('slide1');
-                  if (slide1) {
-                    // Force a repaint before scrolling to fix potential rendering issues
-                    slide1.style.display = 'none';
-                    void slide1.offsetHeight; // Triggers reflow
-                    slide1.style.display = '';
-                    
-                    // Scroll with both smooth behavior and start alignment
-                    slide1.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  // Go to the very top - the backgroundWedding element
+                  const homeElement = document.getElementById('backgroundWedding');
+                  if (homeElement) {
+                    // On mobile, scrolling to the top can cause rendering issues
+                    // Using a more reliable approach with scrollTo
+                    const container = homeElement.parentElement;
+                    if (container) {
+                      container.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                      });
+                    }
                   }
                 }} 
-                className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isSlide1InView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}
+                className={`flex flex-col items-center text-xs focus:outline-none relative transition-all ${isMainInView ? 'text-yellow-700 font-ovo font-bold' : 'text-gray-700'}`}
               >
                 {/* Dot indicator */}
-                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isSlide1InView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
+                <span className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300 ${isMainInView ? 'bg-yellow-700 scale-50 shadow-md' : 'bg-transparent scale-0'}`}/>
                 <Image src="home.svg" alt="Home" width={28} height={28} className="mb-0.5" />
                 <span className="font-ovo mt-0.5">Home</span>
               </button>
@@ -535,7 +596,7 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                   <h3 className="uppercase font-legan text-s sm:text-sm tracking-wide mb-1.5 text-black">
                     SAVE OUR DATE
                   </h3>
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl text-black font-ovo uppercase leading-tight">
+                  <h1 className="text-3xl sm:text-3xl md:text-4xl text-black font-ovo uppercase leading-tight">
                     {new Date(config.eventDate).toLocaleDateString("en-US", {
                       weekday: "long",
                     })} <br />  {new Date(config.eventDate).toLocaleDateString("en-US", {
@@ -556,8 +617,8 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                       09:00 WIB
                     </p>
                     <div className="border-t border-gray-700/50 my-1.5"></div>
-                    <p className="text-xs sm:text-xs text-center font-legan text-white/90">
-                      Gedung Serbaguna Sukasari <br />
+                    <p className="text-s sm:text-xs text-center font-legan text-white/90">
+                      Gedung Serbaguna Sukasari / PASPAMPRES <br />
                       Lawanggintung RT.01/RW.03, Kec. Bogor Sel., Kota Bogor
                     </p>
                   </div>
@@ -568,11 +629,11 @@ const WeddingScreen = ({ name }: WeddingScreenProps) => {
                       RESEPSI
                     </h3>
                     <p className="text-base text-center font-legan text-white font-semibold">
-                      10:00 WIB
+                      10:00 - 15.00 WIB
                     </p>
                     <div className="border-t border-gray-700/50 my-1.5"></div>
-                    <p className="text-xs sm:text-xs text-center font-legan text-white/90">
-                      Gedung Serbaguna Sukasari <br />
+                    <p className="text-s sm:text-xs text-center font-legan text-white/90">
+                      Gedung Serbaguna Sukasari / PASPAMPRES <br />
                       Lawanggintung RT.01/RW.03, Kec. Bogor Sel., Kota Bogor
                     </p>
                   </div>
